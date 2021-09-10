@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
 import 'package:top_zone/models/auth_model.dart';
@@ -16,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String phone, password;
   final authController = Get.find<AuthController>();
-
+  bool obscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,13 +90,23 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 15),
                           GlobalTextField.outlineBorder(
+                            obscure: obscure,
                             prefixIcon: Icons.lock_outlined,
                             borderColor: Colors.black,
                             borderRadius: 15,
                             fillColor: Colors.white,
                             textInputType: TextInputType.visiblePassword,
                             hint: 'الرقم السرى',
-                            suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscure = !obscure;
+                                });
+                              },
+                              icon: Icon((obscure)
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash),
+                            ),
                             validator: (value) {
                               if (value.length < 6) {
                                 return 'يجب ان يكون اكثر من 6 خانات';
@@ -120,45 +132,38 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: MaterialButton(
-                        onPressed: () {
-                          if (formKey.currentState.validate()) {
-                            formKey.currentState.save();
-                            authController.login(LoginModel(
-                              phone: phone,
-                              password: password,
-                            ));
-                          }
-                        },
-                        child: (authController.loginLoading.value)
-                            ? CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                              )
-                            : const Text(
+                    Obx(
+                      () => (authController.loginLoading.value)
+                          ? SpinKitThreeBounce(
+                              duration: const Duration(milliseconds: 1200),
+                              color: Get.theme.colorScheme.secondary,
+                              size: 25,
+                            )
+                          : MaterialButton(
+                              onPressed: () {
+                                if (formKey.currentState.validate()) {
+                                  formKey.currentState.save();
+                                  authController.login(LoginModel(
+                                    phone: phone,
+                                    password: password,
+                                  ));
+                                }
+                              },
+                              child: const Text(
                                 'دخول',
                                 style: const TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                        color: Get.theme.colorScheme.secondary,
-                        minWidth: Get.mediaQuery.size.width * 0.8,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: Colors.black, width: 2),
-                        ),
-                      ),
+                              color: Get.theme.colorScheme.secondary,
+                              minWidth: Get.mediaQuery.size.width * 0.8,
+                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: Colors.black, width: 2),
+                              ),
+                            ),
                     ),
                     const SizedBox(height: 20),
                     Row(

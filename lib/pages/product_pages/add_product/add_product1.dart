@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/products_controller.dart';
 import 'package:top_zone/models/assets_model.dart';
@@ -142,7 +143,13 @@ class _AddProduct1State extends State<AddProduct1> {
                                       ),
                                     ),
                                   )
-                                : Center(child: CircularProgressIndicator());
+                                : Center(
+                                    child: SpinKitThreeBounce(
+                                    duration:
+                                        const Duration(milliseconds: 1200),
+                                    color: Get.theme.colorScheme.secondary,
+                                    size: 25,
+                                  ));
                           }),
                     ),
                   );
@@ -192,7 +199,13 @@ class _AddProduct1State extends State<AddProduct1> {
                                       ),
                                     ),
                                   )
-                                : Center(child: CircularProgressIndicator());
+                                : Center(
+                                    child: SpinKitThreeBounce(
+                                    duration:
+                                        const Duration(milliseconds: 1200),
+                                    color: Get.theme.colorScheme.secondary,
+                                    size: 25,
+                                  ));
                           }),
                     ),
                   );
@@ -240,7 +253,13 @@ class _AddProduct1State extends State<AddProduct1> {
                                       ),
                                     ),
                                   )
-                                : Center(child: CircularProgressIndicator());
+                                : Center(
+                                    child: SpinKitThreeBounce(
+                                    duration:
+                                        const Duration(milliseconds: 1200),
+                                    color: Get.theme.colorScheme.secondary,
+                                    size: 25,
+                                  ));
                           }),
                     ),
                   );

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:top_zone/models/aboutus_model.dart';
 import 'package:top_zone/models/add_product_response_model.dart';
 import 'package:top_zone/models/auth_model.dart';
 import 'package:top_zone/models/brands_model.dart';
@@ -100,6 +101,12 @@ abstract class RestClient {
     @Part(name: 'details') String details,
     // @Part(name: 'car_type') String carType,
   );
+  /*--------------------------------------------------------------------------*/
+  /*------------------------------  About Us  --------------------------------*/
+  /*--------------------------------------------------------------------------*/
+
+  @GET("/about_us")
+  Future<AboutUsModel> getAboutUs();
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

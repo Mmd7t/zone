@@ -26,7 +26,9 @@ class _SignupPage1State extends State<SignupPage1> {
     FilePickerResult result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      file = File(result.files.single.path);
+      setState(() {
+        file = File(result.files.single.path);
+      });
     } else {
       // User canceled the picker
     }
@@ -98,6 +100,9 @@ class _SignupPage1State extends State<SignupPage1> {
                       key: formKey,
                       child: Column(
                         children: [
+/*-----------------------------------------------------------------------------------*/
+/*------------------------------------  Field 1  ------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
                           GlobalTextField.outlineBorder(
                             prefixIcon: Icons.person_outline,
                             borderColor: Colors.black,
@@ -118,54 +123,57 @@ class _SignupPage1State extends State<SignupPage1> {
                             },
                           ),
                           const SizedBox(height: 10),
+/*-----------------------------------------------------------------------------------*/
+/*------------------------------------  Field 2  ------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black,
-                                  offset: Offset(0, 4),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black, width: 2),
+                            ),
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 12),
+                                const Icon(Icons.person_outline),
+                                const SizedBox(width: 15),
+                                Expanded(
+                                  child: Container(
+                                    child: Text(
+                                      (file == null)
+                                          ? 'السجل التجارى'
+                                          : 'تم اضافة الملف بنجاح',
+                                      style: TextStyle(
+                                        color: (file == null)
+                                            ? Colors.grey.shade400
+                                            : Get.theme.colorScheme.secondary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                                MaterialButton(
+                                  onPressed: file == null
+                                      ? () {
+                                          pickFile();
+                                        }
+                                      : null,
+                                  child: Text('اضافة'),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  color: Get.theme.colorScheme.secondary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
                               ],
                             ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
-                                border:
-                                    Border.all(color: Colors.black, width: 2),
-                              ),
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 12),
-                                  const Icon(Icons.person_outline),
-                                  const SizedBox(width: 15),
-                                  Text(
-                                    (file == null)
-                                        ? 'السجل التجارى'
-                                        : '${file.path}',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  const Spacer(),
-                                  Container(
-                                    child: MaterialButton(
-                                      onPressed: () {
-                                        pickFile();
-                                      },
-                                      child: Text('اضافة'),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20),
-                                      color: Get.theme.colorScheme.secondary,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                           const SizedBox(height: 10),
+/*-----------------------------------------------------------------------------------*/
+/*------------------------------------  Field 3  ------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
                           GlobalTextField.outlineBorder(
                             prefixIcon: Icons.email_outlined,
                             borderColor: Colors.black,
@@ -216,7 +224,8 @@ class _SignupPage1State extends State<SignupPage1> {
                         ),
                         const SizedBox(width: 8),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () =>
+                              Get.offNamedUntil(Routes.LOGIN, (route) => false),
                           child: Text(
                             'اضغط هنا للدخول',
                             style: Get.textTheme.bodyText1.copyWith(

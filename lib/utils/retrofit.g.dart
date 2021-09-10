@@ -281,4 +281,21 @@ class _RestClient implements RestClient {
     final value = AddProductResponseModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<AboutUsModel> getAboutUs() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/about_us',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AboutUsModel.fromJson(_result.data);
+    return value;
+  }
 }

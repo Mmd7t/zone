@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:top_zone/controllers/products_controller.dart';
@@ -162,7 +163,11 @@ class _AddProduct3State extends State<AddProduct3> {
               const SizedBox(height: 20),
               Obx(
                 () => (productsController.addProductLoading.value)
-                    ? CircularProgressIndicator()
+                    ? SpinKitThreeBounce(
+                        duration: const Duration(milliseconds: 1200),
+                        color: Get.theme.colorScheme.secondary,
+                        size: 25,
+                      )
                     : GlobalBtn(
                         title: 'اعلان المنتج',
                         onTap: () async {

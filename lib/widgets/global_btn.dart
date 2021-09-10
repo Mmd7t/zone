@@ -17,10 +17,10 @@ class GlobalBtn extends StatelessWidget {
       ),
       color: Get.theme.primaryColor,
       minWidth: Get.mediaQuery.size.width * 0.8,
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 18),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.black, width: 1.5),
+        side: BorderSide(color: Colors.black, width: 1.3),
       ),
     );
   }

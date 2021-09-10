@@ -154,7 +154,7 @@ class _RegisterIntroState extends State<RegisterIntro> {
                                 color: Get.theme.primaryColor,
                                 borderRadius: BorderRadius.circular(15),
                                 border:
-                                    Border.all(color: Colors.black, width: 3),
+                                    Border.all(color: Colors.black, width: 1.5),
                               ),
                               padding: const EdgeInsets.all(8),
                               child: Column(
@@ -186,7 +186,7 @@ class _RegisterIntroState extends State<RegisterIntro> {
                                 color: Get.theme.primaryColor,
                                 borderRadius: BorderRadius.circular(15),
                                 border:
-                                    Border.all(color: Colors.black, width: 3),
+                                    Border.all(color: Colors.black, width: 1.5),
                               ),
                               padding: const EdgeInsets.all(8),
                               child: Column(

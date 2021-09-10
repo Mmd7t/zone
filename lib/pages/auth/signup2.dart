@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
 import 'package:top_zone/routes/app_pages.dart';
+import 'package:top_zone/widgets/custom_dialogs.dart';
 import 'package:top_zone/widgets/global_back_btn.dart';
 import 'package:top_zone/widgets/global_btn.dart';
 import 'package:top_zone/widgets/global_textfield.dart';
@@ -17,8 +19,12 @@ class _SignupPage2State extends State<SignupPage2> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   bool checkBoxVal = false;
   final authController = Get.find<AuthController>();
+
+  bool obscure1 = true;
+  bool obscure2 = true;
 
   @override
   void initState() {
@@ -96,7 +102,7 @@ class _SignupPage2State extends State<SignupPage2> {
                         children: [
                           GlobalTextField.outlineBorder(
                             controller: phone,
-                            prefixIcon: Icons.phone_outlined,
+                            prefixIcon: CupertinoIcons.phone,
                             borderColor: Colors.black,
                             borderRadius: 15,
                             fillColor: Colors.white,
@@ -113,13 +119,23 @@ class _SignupPage2State extends State<SignupPage2> {
                           const SizedBox(height: 10),
                           GlobalTextField.outlineBorder(
                             controller: password,
+                            obscure: obscure1,
                             prefixIcon: Icons.lock_outlined,
                             borderColor: Colors.black,
                             borderRadius: 15,
                             fillColor: Colors.white,
                             hint: 'الرقم السرى',
                             textInputType: TextInputType.visiblePassword,
-                            suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscure1 = !obscure1;
+                                });
+                              },
+                              icon: Icon((obscure1)
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash),
+                            ),
                             validator: (value) {
                               if (value.length < 6) {
                                 return 'يجب ان يكون اكثر من 6 خانات';
@@ -130,16 +146,27 @@ class _SignupPage2State extends State<SignupPage2> {
                           ),
                           const SizedBox(height: 10),
                           GlobalTextField.outlineBorder(
+                            controller: confirmPassword,
                             prefixIcon: Icons.lock_outlined,
+                            obscure: obscure2,
                             borderColor: Colors.black,
                             borderRadius: 15,
                             fillColor: Colors.white,
                             hint: 'تأكيد الرقم السرى',
                             textInputType: TextInputType.visiblePassword,
-                            suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscure2 = !obscure2;
+                                });
+                              },
+                              icon: Icon((obscure1)
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash),
+                            ),
                             validator: (value) {
-                              if (value.length < 6) {
-                                return 'يجب ان يكون اكثر من 6 خانات';
+                              if (value != password.text) {
+                                return 'الرقم السرى غير متطابق';
                               } else {
                                 return null;
                               }
@@ -148,13 +175,13 @@ class _SignupPage2State extends State<SignupPage2> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Checkbox(
                           side: BorderSide(color: Colors.black, width: 1.5),
-                          value: true,
+                          value: checkBoxVal,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(3)),
                           onChanged: (value) {
@@ -172,21 +199,30 @@ class _SignupPage2State extends State<SignupPage2> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                     GlobalBtn(
                       title: 'التالى',
                       onTap: () {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
-                          authController.phone.value = phone.text;
-                          authController.password.value = password.text;
+                        if (checkBoxVal) {
+                          if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
 
-                          print('phoooooooooooooooooooooooooooooooone :: ' +
-                              authController.phone.value.toString());
-                          print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :: ' +
-                              authController.name.value.toString());
+                            authController.phone.value = phone.text;
+                            authController.password.value = password.text;
 
-                          Get.toNamed(Routes.REGISTER3);
+                            print('phoooooooooooooooooooooooooooooooone :: ' +
+                                authController.phone.value.toString());
+                            print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :: ' +
+                                authController.name.value.toString());
+
+                            Get.toNamed(Routes.REGISTER3);
+                          }
+                        } else {
+                          errorDialog(
+                            title: 'الشروط و الاحكام',
+                            content:
+                                'يجب الموافقة على الشروط و الاحكام لتسجيل الحساب',
+                          );
                         }
                       },
                     ),

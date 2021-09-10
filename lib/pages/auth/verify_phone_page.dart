@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
@@ -110,38 +111,37 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: MaterialButton(
-                          onPressed: () {
-                            authController.verifyCode(VerifyCodeModel(
-                              phone: data,
-                              code: int.parse(_pinPutController.text),
-                            ));
-                          },
-                          child: const Text(
-                            'تأكيد',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          color: Constants.color1,
-                          minWidth: Get.mediaQuery.size.width * 0.8,
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.black, width: 2),
-                          ),
-                        ),
+                      Obx(
+                        () => (authController.verifyLoading.value)
+                            ? SpinKitThreeBounce(
+                                duration: const Duration(milliseconds: 1200),
+                                color: Get.theme.colorScheme.secondary,
+                                size: 25,
+                              )
+                            : MaterialButton(
+                                onPressed: () {
+                                  authController.verifyCode(VerifyCodeModel(
+                                    phone: data,
+                                    code: int.parse(_pinPutController.text),
+                                  ));
+                                },
+                                child: const Text(
+                                  'تأكيد',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                color: Constants.color1,
+                                minWidth: Get.mediaQuery.size.width * 0.8,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side:
+                                      BorderSide(color: Colors.black, width: 2),
+                                ),
+                              ),
                       ),
                       const SizedBox(height: 20),
                       Row(
@@ -183,11 +183,11 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 3),
       content: Container(
-        height: 80.0,
+        height: 30.0,
         child: Center(
           child: Text(
-            'Pin Submitted. Value: $pin',
-            style: const TextStyle(fontSize: 25.0),
+            'تم ادخال الكود :: $pin',
+            style: const TextStyle(fontSize: 18.0),
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/routes/app_pages.dart';
 import 'package:top_zone/utils/shared_prefs.dart';
+import 'package:top_zone/widgets/global_btn.dart';
 
 import '../../widgets/paginations.dart';
 
@@ -113,16 +114,7 @@ class _OnBoardingState extends State<OnBoarding> {
                         padding: const EdgeInsets.all(25.0),
                         child: GestureDetector(
                           onTap: () async {
-                            String apiToken =
-                                await SharedPrefsHelper.getApiTokenFromPrefs();
-
-                            print(apiToken);
-                            if (apiToken != null) {
-                              Get.offNamedUntil(
-                                  Routes.MAIN_PAGE, (route) => false);
-                            } else {
-                              Get.offNamedUntil(Routes.LOGIN, (route) => false);
-                            }
+                            Get.offNamedUntil(Routes.LOGIN, (route) => false);
                           },
                           child: Text(
                             'تخطى',
@@ -187,110 +179,54 @@ class _OnBoardingState extends State<OnBoarding> {
                     ),
                   ),
                   (currentPage == 2)
-                      ? Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: MaterialButton(
-                            onPressed: () async {
-                              String apiToken = await SharedPrefsHelper
-                                  .getApiTokenFromPrefs();
-                              if (apiToken != null) {
-                                Get.offNamedUntil(
-                                    Routes.MAIN_PAGE, (route) => false);
-                              } else {
-                                Get.offNamedUntil(
-                                    Routes.LOGIN, (route) => false);
-                              }
-                            },
-                            child: const Text(
-                              'ابدأ',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            color: Get.theme.primaryColor,
-                            minWidth: Get.mediaQuery.size.width * 0.8,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: Colors.black, width: 2),
-                            ),
-                          ),
+                      ? GlobalBtn(
+                          onTap: () async {
+                            Get.offNamedUntil(Routes.LOGIN, (route) => false);
+                          },
+                          title: 'ابدأ',
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
+                            MaterialButton(
+                              onPressed: () {
+                                setState(() {
+                                  currentPage++;
+                                });
+                              },
+                              child: const Text(
+                                'دخول',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              child: MaterialButton(
-                                onPressed: () {
-                                  setState(() {
-                                    currentPage++;
-                                  });
-                                },
-                                child: const Text(
-                                  'دخول',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                color: Get.theme.primaryColor,
-                                minWidth: Get.mediaQuery.size.width * 0.4,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side:
-                                      BorderSide(color: Colors.black, width: 2),
-                                ),
+                              color: Get.theme.primaryColor,
+                              minWidth: Get.mediaQuery.size.width * 0.4,
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side:
+                                    BorderSide(color: Colors.black, width: 1.3),
                               ),
                             ),
                             const SizedBox(width: 10),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Get.theme.primaryColor,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
+                            MaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                'تسجيل',
+                                style: TextStyle(
+                                  color: Get.theme.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              child: MaterialButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'تسجيل',
-                                  style: TextStyle(
-                                    color: Get.theme.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                color: Colors.white,
-                                minWidth: Get.mediaQuery.size.width * 0.4,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(
-                                      color: Get.theme.primaryColor, width: 2),
-                                ),
+                              color: Colors.white,
+                              minWidth: Get.mediaQuery.size.width * 0.4,
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                    color: Get.theme.primaryColor, width: 1.3),
                               ),
                             ),
                           ],

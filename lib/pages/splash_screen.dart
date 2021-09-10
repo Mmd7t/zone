@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/routes/app_pages.dart';
+import 'package:top_zone/utils/shared_prefs.dart';
 import 'package:top_zone/widgets/custom_progress_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +17,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () => Get.offNamed(Routes.ONBOARDING));
+    Timer(const Duration(seconds: 3), () async {
+      String apiToken = await SharedPrefsHelper.getApiTokenFromPrefs();
+
+      print(apiToken);
+      if (apiToken != null) {
+        Get.offNamedUntil(Routes.MAIN_PAGE, (route) => false);
+      } else {
+        Get.offNamedUntil(Routes.ONBOARDING, (route) => false);
+      }
+    });
   }
 
   @override

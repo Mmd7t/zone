@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
@@ -37,53 +38,50 @@ class _SignupPage3State extends State<SignupPage3> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: SafeArea(
-              child: Container(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GlobalBackBtn(),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'عنوانك على الخريطة',
-                                style: Get.textTheme.subtitle1.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
+          SafeArea(
+            child: Container(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GlobalBackBtn(),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'عنوانك على الخريطة',
+                              style: Get.textTheme.subtitle1.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: GlobalTextField.outlineBorder(
-                          borderColor: Colors.black,
-                          borderRadius: 15,
-                          fillColor: Colors.white,
-                          hint: 'ابحث',
-                          suffixIcon: const Icon(Icons.search),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                    //   child: GlobalTextField.outlineBorder(
+                    //     borderColor: Colors.black,
+                    //     borderRadius: 15,
+                    //     fillColor: Colors.white,
+                    //     hint: 'ابحث',
+                    //     suffixIcon: const Icon(Icons.search),
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
@@ -149,7 +147,11 @@ class _SignupPage3State extends State<SignupPage3> {
                   const SizedBox(height: 20),
                   Obx(
                     () => (geolocatorController.getAddressName.value == '')
-                        ? CircularProgressIndicator()
+                        ? SpinKitThreeBounce(
+                            duration: const Duration(milliseconds: 1200),
+                            color: Get.theme.colorScheme.secondary,
+                            size: 25,
+                          )
                         : Text(
                             '${geolocatorController.getAddressName.value}',
                             style: Get.textTheme.subtitle1.copyWith(
@@ -158,25 +160,35 @@ class _SignupPage3State extends State<SignupPage3> {
                           ),
                   ),
                   const SizedBox(height: 15),
-                  GlobalBtn(
-                    title: 'تسجيل',
-                    onTap: () {
-                      print('phoooooooooooooooooooooooooooooooone :: ' +
-                          authController.phone.value.toString());
-                      print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :: ' +
-                          authController.name.value.toString());
-                      authController.register(RegisterModel(
-                        name: authController.name.value,
-                        email: authController.email.value,
-                        phone: authController.phone.value,
-                        password: authController.password.value,
-                        file: authController.file.value,
-                        len: geolocatorController
-                            .currentLocation.value.longitude,
-                        alt:
-                            geolocatorController.currentLocation.value.latitude,
-                      ));
-                    },
+                  Obx(
+                    () => (authController.registerLoading.value)
+                        ? SpinKitThreeBounce(
+                            duration: const Duration(milliseconds: 1200),
+                            color: Get.theme.colorScheme.secondary,
+                            size: 25,
+                          )
+                        : GlobalBtn(
+                            title: 'تسجيل',
+                            onTap: () {
+                              print('phoooooooooooooooooooooooooooooooone :: ' +
+                                  authController.phone.value.toString());
+                              print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :: ' +
+                                  authController.name.value.toString());
+                              authController.register(
+                                RegisterModel(
+                                  name: authController.name.value,
+                                  email: authController.email.value,
+                                  phone: authController.phone.value,
+                                  password: authController.password.value,
+                                  file: authController.file.value,
+                                  len: geolocatorController
+                                      .currentLocation.value.longitude,
+                                  alt: geolocatorController
+                                      .currentLocation.value.latitude,
+                                ),
+                              );
+                            },
+                          ),
                   ),
                   const SizedBox(height: 10),
                 ],

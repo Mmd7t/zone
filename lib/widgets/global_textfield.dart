@@ -58,7 +58,7 @@ class GlobalTextField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         decoration: InputDecoration(
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           hintText: hint,
           hintStyle: hintStyle ?? const TextStyle(color: Colors.grey),
           labelText: label,

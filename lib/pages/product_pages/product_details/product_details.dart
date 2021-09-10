@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/products_controller.dart';
 import 'package:top_zone/models/product_details_model.dart';
@@ -43,7 +44,12 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
       body: Obx(
         () => (productsController.productDetailsLoading.value)
-            ? Center(child: CircularProgressIndicator())
+            ? Center(
+                child: SpinKitThreeBounce(
+                duration: const Duration(milliseconds: 1200),
+                color: Get.theme.colorScheme.secondary,
+                size: 25,
+              ))
             : ListView(
                 shrinkWrap: true,
                 children: [

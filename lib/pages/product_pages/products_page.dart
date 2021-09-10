@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/products_controller.dart';
@@ -49,7 +50,11 @@ class ProductsPage extends StatelessWidget {
             ),
             Obx(() => (productsController.productsLoading.value)
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: SpinKitThreeBounce(
+                          duration: const Duration(milliseconds: 1200),
+                          color: Get.theme.colorScheme.secondary,
+                          size: 25,
+                        ),
                       )
                     : ListView.builder(
                         itemCount: productsController.productsDatum.length,
