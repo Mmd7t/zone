@@ -107,6 +107,8 @@ abstract class RestClient {
 
   @GET("/about_us")
   Future<AboutUsModel> getAboutUs();
+  @GET("/warranty_policy")
+  Future<AboutUsModel> getWarrantyPolicy();
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

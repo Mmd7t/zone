@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
+import 'package:top_zone/controllers/static_controller.dart';
 import 'package:top_zone/routes/app_pages.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage({Key key}) : super(key: key);
   final authController = Get.find<AuthController>();
+  final staticController = Get.find<StaticController>();
 
   final textStyle = Get.textTheme.subtitle1
       .copyWith(color: Colors.black, fontWeight: FontWeight.bold);
@@ -35,11 +37,17 @@ class MenuPage extends StatelessWidget {
               title: Text("الاعدادات", style: textStyle),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                staticController.getStaticData(true);
+                Get.toNamed(Routes.STATIC_PAGE);
+              },
               title: Text("من نحن", style: textStyle),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                staticController.getStaticData(false);
+                Get.toNamed(Routes.STATIC_PAGE);
+              },
               title: Text("الشروط والاحكام", style: textStyle),
             ),
             ListTile(

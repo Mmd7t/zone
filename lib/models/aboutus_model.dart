@@ -9,13 +9,14 @@ class AboutUsModel {
   int mainCode;
   int code;
   dynamic error;
-  List<Datum> data;
+  List<AboutUsDatum> data;
 
   factory AboutUsModel.fromJson(Map<String, dynamic> json) => AboutUsModel(
         mainCode: json["mainCode"],
         code: json["code"],
         error: json["error"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<AboutUsDatum>.from(
+            json["data"].map((x) => AboutUsDatum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -26,8 +27,8 @@ class AboutUsModel {
       };
 }
 
-class Datum {
-  Datum({
+class AboutUsDatum {
+  AboutUsDatum({
     this.id,
     this.description,
   });
@@ -35,7 +36,7 @@ class Datum {
   int id;
   String description;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory AboutUsDatum.fromJson(Map<String, dynamic> json) => AboutUsDatum(
         id: json["id"],
         description: json["description"],
       );

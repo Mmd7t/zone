@@ -6,6 +6,7 @@ import 'package:top_zone/pages/auth/verify_phone_page.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product1.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product2.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product3.dart';
+import 'package:top_zone/pages/static_pages/static_page.dart';
 import '../pages/auth/login_page.dart';
 import '../pages/auth/register_intro.dart';
 import '../pages/auth/signup1.dart';
@@ -60,10 +61,6 @@ class AppPages {
       name: Routes.VERIFY_PHONE,
       page: () => VerifyPhonePage(),
     ),
-    // GetPage(
-    //   name: Routes.REGISTER6,
-    //   page: () => SignupPage6(),
-    // ),
     GetPage(
       name: Routes.ADD_PRODUCT1,
       page: () => AddProduct1(),
@@ -79,6 +76,10 @@ class AppPages {
     GetPage(
       name: Routes.PRODUCT_DETAILS,
       page: () => ProductDetails(),
+    ),
+    GetPage(
+      name: Routes.STATIC_PAGE,
+      page: () => StaticPage(),
     ),
   ];
 }
