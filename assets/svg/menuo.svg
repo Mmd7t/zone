@@ -1,0 +1,15 @@
+<svg id="feather_align-right" data-name="feather / align-right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M19,14H5a1,1,0,1,1,0-2H19a1,1,0,0,1,0,2Zm0-4H1A1,1,0,1,1,1,8H19a1,1,0,0,1,0,2Zm0-4H5A1,1,0,1,1,5,4H19a1,1,0,0,1,0,2Zm0-4H1A1,1,0,0,1,1,0H19a1,1,0,0,1,0,2Z" transform="translate(2 5)"/>
+    </clipPath>
+  </defs>
+  <g id="Group_29" data-name="Group 29">
+    <path id="Shape-2" data-name="Shape" d="M19,14H5a1,1,0,1,1,0-2H19a1,1,0,0,1,0,2Zm0-4H1A1,1,0,1,1,1,8H19a1,1,0,0,1,0,2Zm0-4H5A1,1,0,1,1,5,4H19a1,1,0,0,1,0,2Zm0-4H1A1,1,0,0,1,1,0H19a1,1,0,0,1,0,2Z" transform="translate(2 5)"/>
+    <g id="Mask_Group_29" data-name="Mask Group 29" clip-path="url(#clip-path)">
+      <g id="COLOR_black" data-name="COLOR/ black">
+        <rect id="Rectangle" width="24" height="24"/>
+      </g>
+    </g>
+  </g>
+</svg>

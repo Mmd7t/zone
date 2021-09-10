@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="50" viewBox="0 0 48 50">
+  <defs>
+    <filter id="shadow" x="0" y="0" width="48" height="50" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#18191f"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <path id="Combined_Shape" data-name="Combined Shape" d="M16.738,19.552l-.152-.137L10,12.829,3.414,19.415A2,2,0,0,1,.449,16.738l.137-.152L7.171,10,.586,3.414A2,2,0,0,1,3.263.449l.151.137L10,7.171,16.586.586a2,2,0,0,1,2.966,2.677l-.137.151L12.829,10l6.586,6.585a2,2,0,0,1-2.677,2.966Z" transform="translate(0 0)" fill="#18191f"/>
+    </clipPath>
+  </defs>
+  <g id="Group_12135" data-name="Group 12135" transform="translate(-23.5 -156)">
+    <g id="button_medium_outline_-_icon-only" data-name="button / medium / outline - icon-only" transform="translate(23.5 156)">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#shadow)">
+        <g id="shadow-2" data-name="shadow" fill="#18191f" stroke="#18191f" stroke-miterlimit="10" stroke-width="2">
+          <circle cx="24" cy="24" r="24" stroke="none"/>
+          <circle cx="24" cy="24" r="23" fill="none"/>
+        </g>
+      </g>
+      <g id="bg" fill="#fff" stroke="#18191f" stroke-miterlimit="10" stroke-width="2">
+        <circle cx="24" cy="24" r="24" stroke="none"/>
+        <circle cx="24" cy="24" r="23" fill="none"/>
+      </g>
+      <g id="feather_heart-fill" data-name="feather / heart-fill" transform="translate(8 8)">
+        <g id="Group_20" data-name="Group 20" transform="translate(6 6)">
+          <path id="Combined_Shape-2" data-name="Combined Shape" d="M16.738,19.552l-.152-.137L10,12.829,3.414,19.415A2,2,0,0,1,.449,16.738l.137-.152L7.171,10,.586,3.414A2,2,0,0,1,3.263.449l.151.137L10,7.171,16.586.586a2,2,0,0,1,2.966,2.677l-.137.151L12.829,10l6.586,6.585a2,2,0,0,1-2.677,2.966Z" transform="translate(0 0)" fill="#18191f"/>
+          <g id="Mask_Group_20" data-name="Mask Group 20" clip-path="url(#clip-path)">
+            <g id="COLOR_black" data-name="COLOR/ black" transform="translate(-6 -6)">
+              <rect id="Rectangle" width="32" height="32" fill="#18191f"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg id="feather_instagram_copy" data-name="feather / instagram copy" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path" d="M11,0H8A5,5,0,0,0,3,5V8H0v4H3v8H7V12h3l1-4H7V5A1,1,0,0,1,8,4h3Z" transform="translate(7 2)" fill="#18191f"/>
+    </clipPath>
+  </defs>
+  <g id="Group_26" data-name="Group 26">
+    <path id="Path-2" data-name="Path" d="M11,0H8A5,5,0,0,0,3,5V8H0v4H3v8H7V12h3l1-4H7V5A1,1,0,0,1,8,4h3Z" transform="translate(7 2)" fill="#18191f"/>
+    <g id="Mask_Group_26" data-name="Mask Group 26" clip-path="url(#clip-path)">
+      <g id="COLOR_black" data-name="COLOR/ black">
+        <rect id="Rectangle" width="24" height="24" fill="#18191f"/>
+      </g>
+    </g>
+  </g>
+</svg>

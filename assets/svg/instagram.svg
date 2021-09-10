@@ -1,0 +1,15 @@
+<svg id="feather_instagram" data-name="feather / instagram" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Combined_Shape" data-name="Combined Shape" d="M16,22H6a6.007,6.007,0,0,1-6-6V6A6.007,6.007,0,0,1,6,0H16a6.007,6.007,0,0,1,6,6V16A6.006,6.006,0,0,1,16,22ZM6,2A4.005,4.005,0,0,0,2,6V16a4,4,0,0,0,4,4H16a4,4,0,0,0,4-4V6a4,4,0,0,0-4-4Zm5.044,13.957a5,5,0,0,1,0-10,5.028,5.028,0,0,1,.736.054,5,5,0,0,1,1.515,9.412A5.023,5.023,0,0,1,11.045,15.957Zm0-8a3,3,0,0,0,0,6,3,3,0,0,0,2.967-3.441,2.984,2.984,0,0,0-2.528-2.527A3.016,3.016,0,0,0,11.042,7.957Z" transform="translate(1 1)" fill="#18191f"/>
+    </clipPath>
+  </defs>
+  <g id="Group_30" data-name="Group 30">
+    <path id="Combined_Shape-2" data-name="Combined Shape" d="M16,22H6a6.007,6.007,0,0,1-6-6V6A6.007,6.007,0,0,1,6,0H16a6.007,6.007,0,0,1,6,6V16A6.006,6.006,0,0,1,16,22ZM6,2A4.005,4.005,0,0,0,2,6V16a4,4,0,0,0,4,4H16a4,4,0,0,0,4-4V6a4,4,0,0,0-4-4Zm5.044,13.957a5,5,0,0,1,0-10,5.028,5.028,0,0,1,.736.054,5,5,0,0,1,1.515,9.412A5.023,5.023,0,0,1,11.045,15.957Zm0-8a3,3,0,0,0,0,6,3,3,0,0,0,2.967-3.441,2.984,2.984,0,0,0-2.528-2.527A3.016,3.016,0,0,0,11.042,7.957Z" transform="translate(1 1)" fill="#18191f"/>
+    <g id="Mask_Group_30" data-name="Mask Group 30" clip-path="url(#clip-path)">
+      <g id="COLOR_black" data-name="COLOR/ black">
+        <rect id="Rectangle" width="24" height="24" fill="#18191f"/>
+      </g>
+    </g>
+  </g>
+</svg>

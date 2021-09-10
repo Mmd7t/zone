@@ -1,0 +1,25 @@
+<svg id="Group" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="161" height="161" viewBox="0 0 161 161">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00efb7"/>
+      <stop offset="1" stop-color="#0197fe"/>
+    </radialGradient>
+    <clipPath id="clip-path">
+      <path id="check" d="M49.327,1.318A4.5,4.5,0,0,1,56,7.34l-.309.342L23.779,39.594a4.5,4.5,0,0,1-6.022.309l-.342-.309L1.318,23.5A4.5,4.5,0,0,1,7.34,16.825l.342.309L20.595,30.045Z" transform="translate(0 0)" fill="#18191f"/>
+    </clipPath>
+  </defs>
+  <g id="Oval" stroke="#18191f" stroke-miterlimit="10" stroke-width="2" fill="url(#radial-gradient)">
+    <circle cx="80.5" cy="80.5" r="80.5" stroke="none"/>
+    <circle cx="80.5" cy="80.5" r="79.5" fill="none"/>
+  </g>
+  <g id="feather_check" data-name="feather / check" transform="translate(45 45)">
+    <g id="Group_15" data-name="Group 15" transform="translate(7.5 15.6)">
+      <path id="check-2" data-name="check" d="M49.327,1.318A4.5,4.5,0,0,1,56,7.34l-.309.342L23.779,39.594a4.5,4.5,0,0,1-6.022.309l-.342-.309L1.318,23.5A4.5,4.5,0,0,1,7.34,16.825l.342.309L20.595,30.045Z" transform="translate(0 0)" fill="#18191f"/>
+      <g id="Mask_Group_15" data-name="Mask Group 15" clip-path="url(#clip-path)">
+        <g id="COLOR_black" data-name="COLOR/ black" transform="translate(-7.5 -15.6)">
+          <rect id="Rectangle" width="72" height="72" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

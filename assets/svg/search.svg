@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Combined_Shape" data-name="Combined Shape" d="M18.292,19.707l-3.678-3.678a9.009,9.009,0,1,1,1.414-1.414l3.678,3.678a1,1,0,0,1-1.415,1.415ZM2,9A7,7,0,1,0,9,2,7.008,7.008,0,0,0,2,9Z" transform="translate(2 2)" fill="#18191f"/>
+    </clipPath>
+  </defs>
+  <g id="feather_heart" data-name="feather / heart" transform="translate(-2 -2)">
+    <g id="Group_44" data-name="Group 44">
+      <path id="Combined_Shape-2" data-name="Combined Shape" d="M18.292,19.707l-3.678-3.678a9.009,9.009,0,1,1,1.414-1.414l3.678,3.678a1,1,0,0,1-1.415,1.415ZM2,9A7,7,0,1,0,9,2,7.008,7.008,0,0,0,2,9Z" transform="translate(2 2)" fill="#18191f"/>
+      <g id="Mask_Group_44" data-name="Mask Group 44" clip-path="url(#clip-path)">
+        <g id="COLOR_black" data-name="COLOR/ black">
+          <rect id="Rectangle" width="24" height="24" fill="#18191f"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
