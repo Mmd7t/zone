@@ -140,6 +140,24 @@ class ProductsController extends GetxController {
     }
   }
 
+  Future<AssetsModel> getProductassets2(id) async {
+    try {
+      productDetailsLoading.value = true;
+      AssetsModel response = await client.getAssets(id);
+      if (response != null) {
+        // categoriesDatumList.clear();
+        // categoriesDatumList.addAll(response.data);
+        return response;
+      } else {
+        // errorDialog(content: response.toString());
+        return null;
+      }
+      // productDetailsLoading.value = false;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<void> addProduct() async {
     AddProductResponseModel response;
     try {

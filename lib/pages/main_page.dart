@@ -64,17 +64,17 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           BottomNavigationBarItem(
-            label: "الطلبات",
+            label: "المنتجات",
             icon: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ImageIcon(Svg("assets/svg/order.svg")),
             ),
           ),
           BottomNavigationBarItem(
-            label: "المفضله",
+            label: "الطلبات",
             icon: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ImageIcon(Svg("assets/svg/fav.svg")),
+              child: ImageIcon(Svg("assets/svg/car.svg"), size: 28),
             ),
           ),
           BottomNavigationBarItem(

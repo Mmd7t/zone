@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/products_controller.dart';
@@ -15,7 +16,7 @@ class AddProduct2 extends StatefulWidget {
 
 class _AddProduct2State extends State<AddProduct2> {
   final productsController = Get.find<ProductsController>();
-
+  final List _cast = ['جديد', 'مستعمل'];
   TextEditingController priceController = TextEditingController();
   TextEditingController poductNumberController = TextEditingController();
   TextEditingController poductWarrantyController = TextEditingController();
@@ -30,7 +31,7 @@ class _AddProduct2State extends State<AddProduct2> {
     print(productsController.photo.value);
   }
 
-  int groupval;
+  int groupval = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,17 +78,9 @@ class _AddProduct2State extends State<AddProduct2> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.black, width: 2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
+                  border: Border.all(color: Colors.black, width: 1.3),
                 ),
                 width: Get.mediaQuery.size.width * 0.9,
-                // padding:
-                //     const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
                 child: Row(
                   children: [
                     Padding(
@@ -95,40 +88,38 @@ class _AddProduct2State extends State<AddProduct2> {
                       child: Text(
                         'الكمية',
                         style: Get.textTheme.bodyText1
-                            .copyWith(color: Colors.black),
+                            .copyWith(color: Colors.black45),
                       ),
                     ),
                     Spacer(),
                     Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Get.theme.colorScheme.primary,
+                      ),
                       child: Row(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 8),
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Get.theme.primaryColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
+                          Padding(
+                            padding: const EdgeInsets.all(18),
+                            child: InkWell(
+                              onTap: () {
                                 productsController.amount.value++;
                               },
-                              icon: Icon(Icons.add),
+                              child: Icon(Icons.add),
                             ),
                           ),
-                          Obx(() => Text('${productsController.amount.value}')),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.only(right: 8),
-                            decoration: BoxDecoration(
-                              color: Get.theme.primaryColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
+                          Obx(() => Text(
+                                '${productsController.amount.value}',
+                                style: Get.textTheme.headline6
+                                    .copyWith(color: Colors.white),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.all(18),
+                            child: InkWell(
+                              onTap: () {
                                 productsController.amount.value--;
                               },
-                              icon: Icon(Icons.remove),
+                              child: Icon(Icons.remove),
                             ),
                           ),
                         ],
@@ -178,38 +169,32 @@ class _AddProduct2State extends State<AddProduct2> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: 0,
-                        groupValue: groupval,
-                        onChanged: (value) {
-                          setState(() {
-                            groupval = value;
-                          });
-                        },
-                      ),
-                      Text('جديد'),
-                    ],
+              Wrap(
+                spacing: 5,
+                children: List.generate(
+                  _cast.length,
+                  (index) => ChoiceChip(
+                    label: Text(_cast[index]),
+                    selected: groupval == index,
+                    labelPadding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                    selectedColor: Get.theme.colorScheme.secondary,
+                    pressElevation: 3,
+                    avatar: (groupval == index)
+                        ? Icon(CupertinoIcons.checkmark_seal)
+                        : null,
+                    labelStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                    padding: const EdgeInsets.all(5.0),
+                    onSelected: (value) {
+                      setState(() {
+                        groupval = value ? index : null;
+                      });
+                    },
                   ),
-                  Row(
-                    children: [
-                      Radio(
-                        value: 1,
-                        groupValue: groupval,
-                        onChanged: (value) {
-                          setState(() {
-                            groupval = value;
-                          });
-                        },
-                      ),
-                      Text('مستعمل'),
-                    ],
-                  ),
-                ],
+                ),
               ),
               const SizedBox(height: 35),
               GlobalBtn(

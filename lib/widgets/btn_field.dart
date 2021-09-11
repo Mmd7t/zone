@@ -14,10 +14,10 @@ class BtnField extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.black, width: 2),
+          border: Border.all(color: Colors.black, width: 1.3),
         ),
         width: Get.mediaQuery.size.width * 0.9,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
         child: Row(
           children: [
             Text(

@@ -20,3 +20,19 @@ errorDialog({String title = 'حدث خطأ', String content}) {
     ],
   );
 }
+
+customSnackBar(String title, IconData icon) {
+  Get.showSnackbar(GetBar(
+    snackPosition: SnackPosition.TOP,
+    messageText: Text(
+      title,
+      style: Get.textTheme.bodyText1.copyWith(color: Colors.black),
+    ),
+    margin: const EdgeInsets.all(8),
+    duration: const Duration(milliseconds: 1700),
+    backgroundColor: Get.theme.colorScheme.secondary,
+    barBlur: 8.0,
+    borderRadius: 15,
+    icon: Icon(icon),
+  ));
+}

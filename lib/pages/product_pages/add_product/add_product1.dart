@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,10 +10,12 @@ import 'package:top_zone/models/brands_model.dart';
 import 'package:top_zone/models/categories_model.dart';
 import 'package:top_zone/routes/app_pages.dart';
 import 'package:top_zone/widgets/btn_field.dart';
+import 'package:top_zone/widgets/custom_dialogs.dart';
 import 'package:top_zone/widgets/global_back_btn.dart';
 import 'package:top_zone/widgets/global_btn.dart';
 import 'package:top_zone/widgets/global_textfield.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:top_zone/widgets/image_picker_sheet.dart';
 
 class AddProduct1 extends StatefulWidget {
   @override
@@ -21,12 +24,14 @@ class AddProduct1 extends StatefulWidget {
 
 class _AddProduct1State extends State<AddProduct1> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   final productsController = Get.find<ProductsController>();
-
   TextEditingController controller = TextEditingController();
-
   final List years = List.generate(23, (index) => index + 2000);
+
+  String brand = "اختر نوع السياره";
+  String asset = "اختر فئة السياره";
+  String model = "اختر موديل السياره";
+  String category = "أختر قسم السياره";
 
   List<Asset> images = <Asset>[];
   List<File> fileImageArray = [];
@@ -47,7 +52,7 @@ class _AddProduct1State extends State<AddProduct1> {
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: 300, // you can select maximum images from here
+        maxImages: 8, // you can select maximum images from here
         enableCamera: true,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
@@ -103,7 +108,7 @@ class _AddProduct1State extends State<AddProduct1> {
             children: [
               const SizedBox(height: 15),
               BtnField(
-                title: 'أختر قسم السيارة',
+                title: category,
                 onTap: () {
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
@@ -116,48 +121,59 @@ class _AddProduct1State extends State<AddProduct1> {
                       width: double.infinity,
                       height: Get.mediaQuery.size.height * 0.5,
                       child: FutureBuilder<CategoriesModel>(
-                          future: productsController.getProductCategories(),
-                          builder: (context, snapshot) {
-                            return (snapshot.hasData)
-                                ? ListView.builder(
-                                    itemCount: snapshot.data.data.length,
-                                    itemBuilder: (context, index) =>
-                                        GestureDetector(
-                                      onTap: () {
-                                        productsController.category.value =
-                                            snapshot.data.data[index].id;
-
-                                        Navigator.of(context).pop();
-                                        Get.snackbar('قسم السيارة',
-                                            'تم اختيار قسم السيارة بنجاح');
-                                      },
-                                      child: Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Text(
-                                            '${snapshot.data.data[index].name}',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                        future: productsController.getProductCategories(),
+                        builder: (context, snapshot) {
+                          return (snapshot.hasData)
+                              ? ListView.builder(
+                                  itemCount: snapshot.data.data.length,
+                                  itemBuilder: (context, index) =>
+                                      GestureDetector(
+                                    onTap: () {
+                                      productsController.category.value =
+                                          snapshot.data.data[index].id;
+                                      setState(() {
+                                        category =
+                                            snapshot.data.data[index].name;
+                                      });
+                                      Navigator.of(context).pop();
+                                      customSnackBar(
+                                          'تم اختيار قسم السياره بنجاح',
+                                          CupertinoIcons.checkmark_seal);
+                                    },
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(26.0),
+                                        child: Text(
+                                          '${snapshot.data.data[index].name}',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  )
-                                : Center(
-                                    child: SpinKitThreeBounce(
+                                  ),
+                                )
+                              : Center(
+                                  child: SpinKitThreeBounce(
                                     duration:
                                         const Duration(milliseconds: 1200),
                                     color: Get.theme.colorScheme.secondary,
                                     size: 25,
-                                  ));
-                          }),
+                                  ),
+                                );
+                        },
+                      ),
                     ),
                   );
                 },
               ),
               const SizedBox(height: 15),
               BtnField(
-                title: 'أختر نوع السيارة',
+                title: brand,
                 onTap: () {
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
@@ -182,18 +198,27 @@ class _AddProduct1State extends State<AddProduct1> {
                                             snapshot.data[index].id;
                                         productsController.brandId.value =
                                             snapshot.data[index].id;
-
+                                        setState(() {
+                                          brand = snapshot.data[index].name;
+                                        });
                                         Navigator.of(context).pop();
-                                        Get.snackbar('نوع السيارة',
-                                            'تم اختيار نوع السيارة بنجاح');
+                                        customSnackBar(
+                                            'تم اختيار نوع السياره بنجاح',
+                                            CupertinoIcons.checkmark_seal);
                                       },
                                       child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                        ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
+                                          padding: const EdgeInsets.all(26),
                                           child: Text(
                                             '${snapshot.data[index].name}',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -213,7 +238,7 @@ class _AddProduct1State extends State<AddProduct1> {
               ),
               const SizedBox(height: 15),
               BtnField(
-                title: 'أختر فئة السيارة',
+                title: asset,
                 onTap: () {
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
@@ -237,17 +262,27 @@ class _AddProduct1State extends State<AddProduct1> {
                                         productsController.asset.value =
                                             snapshot.data.data[index].id;
 
+                                        setState(() {
+                                          asset =
+                                              snapshot.data.data[index].name;
+                                        });
                                         Navigator.of(context).pop();
-                                        Get.snackbar('فئة السيارة',
-                                            'تم اختيار فئة السيارة بنجاح');
+                                        customSnackBar(
+                                            'تم اختيار فئة السياره بنجاح',
+                                            CupertinoIcons.checkmark_seal);
                                       },
                                       child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                        ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
+                                          padding: const EdgeInsets.all(26.0),
                                           child: Text(
                                             '${snapshot.data.data[index].name}',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                       ),
@@ -267,7 +302,7 @@ class _AddProduct1State extends State<AddProduct1> {
               ),
               const SizedBox(height: 15),
               BtnField(
-                title: 'أختر سنة الصنع',
+                title: model,
                 onTap: () {
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
@@ -283,11 +318,19 @@ class _AddProduct1State extends State<AddProduct1> {
                         itemCount: years.length,
                         itemBuilder: (context, index) => GestureDetector(
                           onTap: () {
+                            setState(() {
+                              model = years[index].toString();
+                            });
                             Navigator.of(context).pop();
+                            customSnackBar('تم اختيار موديل السياره بنجاح',
+                                CupertinoIcons.checkmark_seal);
                           },
                           child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
                             child: Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: const EdgeInsets.all(26.0),
                               child: Text(
                                 '${years[index]}',
                                 style: TextStyle(
@@ -336,13 +379,7 @@ class _AddProduct1State extends State<AddProduct1> {
                         decoration: BoxDecoration(
                           color: Get.theme.primaryColor,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.black, width: 2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
+                          border: Border.all(color: Colors.black, width: 1),
                         ),
                         padding: const EdgeInsets.all(8),
                         child: Icon(
@@ -356,22 +393,31 @@ class _AddProduct1State extends State<AddProduct1> {
                 ),
               ),
               Container(
-                width: Get.mediaQuery.size.width,
-                height: 120,
-                child: ListView.builder(
-                  itemCount: images.length,
+                height: 150,
+                child: ListView(
+                  shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    Asset asset = images[index];
-                    return AssetThumb(
-                      asset: asset,
-                      width: 300,
-                      height: 130,
-                    );
-                  },
+                  children: [
+                    (images.length < 1) == true
+                        ? Container()
+                        : Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Container(
+                              height: 120,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: images.length,
+                                itemBuilder: (context, index) {
+                                  return _oneImgFileAsset(images[index], index);
+                                },
+                              ),
+                            ),
+                          ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 35),
+              const SizedBox(height: 20),
               GlobalBtn(
                 title: 'التالى',
                 onTap: () {
@@ -383,9 +429,59 @@ class _AddProduct1State extends State<AddProduct1> {
                   Get.toNamed(Routes.ADD_PRODUCT2);
                 },
               ),
+              const SizedBox(height: 35),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _oneImgFileAsset(Asset img, int index) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10, left: 10),
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10, right: 10),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: AssetThumb(
+                    asset: img,
+                    width: 300,
+                    height: 300,
+                    spinner: Center(
+                        child: SpinKitThreeBounce(
+                      duration: const Duration(milliseconds: 1200),
+                      color: Get.theme.colorScheme.secondary,
+                      size: 25,
+                    )),
+                  )),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            right: 0,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  images.removeAt(index);
+                });
+              },
+              child: Material(
+                color: Colors.white,
+                elevation: 2,
+                shape: CircleBorder(),
+                child: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: const Icon(Icons.close, size: 18, color: Colors.red),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

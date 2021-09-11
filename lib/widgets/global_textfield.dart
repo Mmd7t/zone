@@ -58,7 +58,7 @@ class GlobalTextField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         decoration: InputDecoration(
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
           hintText: hint,
           hintStyle: hintStyle ?? const TextStyle(color: Colors.grey),
           labelText: label,
@@ -73,11 +73,11 @@ class GlobalTextField extends StatelessWidget {
           suffixIcon: suffixIcon ?? const SizedBox(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: borderColor, width: 2),
+            borderSide: BorderSide(color: borderColor, width: 1.3),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: borderColor, width: 2),
+            borderSide: BorderSide(color: borderColor, width: 1.3),
           ),
         ),
         validator: validator,
