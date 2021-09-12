@@ -207,8 +207,15 @@ class _RestClient implements RestClient {
       productWarranty,
       brandId,
       assetId,
+      brands,
+      assets,
+      models,
+      mod,
       categoryId,
-      details) async {
+      details,
+      carType,
+      photoDiscretion,
+      qty) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(apiToken, 'apiToken');
     ArgumentError.checkNotNull(name, 'name');
@@ -220,8 +227,15 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(productWarranty, 'productWarranty');
     ArgumentError.checkNotNull(brandId, 'brandId');
     ArgumentError.checkNotNull(assetId, 'assetId');
+    ArgumentError.checkNotNull(brands, 'brands');
+    ArgumentError.checkNotNull(assets, 'assets');
+    ArgumentError.checkNotNull(models, 'models');
+    ArgumentError.checkNotNull(mod, 'mod');
     ArgumentError.checkNotNull(categoryId, 'categoryId');
     ArgumentError.checkNotNull(details, 'details');
+    ArgumentError.checkNotNull(carType, 'carType');
+    ArgumentError.checkNotNull(photoDiscretion, 'photoDiscretion');
+    ArgumentError.checkNotNull(qty, 'qty');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
@@ -264,11 +278,43 @@ class _RestClient implements RestClient {
     if (assetId != null) {
       _data.fields.add(MapEntry('asset_id', assetId.toString()));
     }
+    _data.files.add(MapEntry(
+        'brands',
+        MultipartFile.fromBytes(
+          brands,
+          filename: null,
+        )));
+    _data.files.add(MapEntry(
+        'assets',
+        MultipartFile.fromBytes(
+          assets,
+          filename: null,
+        )));
+    _data.files.add(MapEntry(
+        'models',
+        MultipartFile.fromBytes(
+          models,
+          filename: null,
+        )));
+    if (mod != null) {
+      _data.fields.add(MapEntry('mod', mod.toString()));
+    }
     if (categoryId != null) {
       _data.fields.add(MapEntry('category_id', categoryId.toString()));
     }
     if (details != null) {
       _data.fields.add(MapEntry('details', details));
+    }
+    if (carType != null) {
+      _data.fields.add(MapEntry('car_type', carType.toString()));
+    }
+    _data.files.add(MapEntry(
+        'discretion_photo',
+        MultipartFile.fromFileSync(photoDiscretion.path,
+            filename:
+                photoDiscretion.path.split(Platform.pathSeparator).last)));
+    if (qty != null) {
+      _data.fields.add(MapEntry('stock', qty.toString()));
     }
     final _result = await _dio.request<Map<String, dynamic>>('/add_product',
         queryParameters: queryParameters,
@@ -313,6 +359,62 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = AboutUsModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<VendorEditProfileResponseModel> vendorEditProfile(
+      userId, apiToken, name, email, ownerName, image, phone, lat, long) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(name, 'name');
+    ArgumentError.checkNotNull(email, 'email');
+    ArgumentError.checkNotNull(ownerName, 'ownerName');
+    ArgumentError.checkNotNull(image, 'image');
+    ArgumentError.checkNotNull(phone, 'phone');
+    ArgumentError.checkNotNull(lat, 'lat');
+    ArgumentError.checkNotNull(long, 'long');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = FormData();
+    if (userId != null) {
+      _data.fields.add(MapEntry('user_id', userId.toString()));
+    }
+    if (apiToken != null) {
+      _data.fields.add(MapEntry('api_token', apiToken));
+    }
+    if (name != null) {
+      _data.fields.add(MapEntry('name', name));
+    }
+    if (email != null) {
+      _data.fields.add(MapEntry('email', email));
+    }
+    if (ownerName != null) {
+      _data.fields.add(MapEntry('owner_name', ownerName));
+    }
+    _data.files.add(MapEntry(
+        'image',
+        MultipartFile.fromFileSync(image.path,
+            filename: image.path.split(Platform.pathSeparator).last)));
+    if (phone != null) {
+      _data.fields.add(MapEntry('phone', phone));
+    }
+    if (lat != null) {
+      _data.fields.add(MapEntry('lat', lat.toString()));
+    }
+    if (long != null) {
+      _data.fields.add(MapEntry('long', long.toString()));
+    }
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/vendor_editprofile',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = VendorEditProfileResponseModel.fromJson(_result.data);
     return value;
   }
 }

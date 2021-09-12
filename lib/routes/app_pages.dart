@@ -2,7 +2,10 @@ import 'package:get/get.dart' show GetPage;
 import 'package:top_zone/bindings/auth_binding.dart';
 import 'package:top_zone/bindings/google_map_binding.dart';
 import 'package:top_zone/bindings/products_binding.dart';
+import 'package:top_zone/bindings/profile_binding.dart';
 import 'package:top_zone/pages/auth/verify_phone_page.dart';
+import 'package:top_zone/pages/menu_page/settings/setting_page.dart';
+import 'package:top_zone/pages/menu_page/settings/setting_pages/edit_profile_page.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product1.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product2.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product3.dart';
@@ -80,6 +83,15 @@ class AppPages {
     GetPage(
       name: Routes.STATIC_PAGE,
       page: () => StaticPage(),
+    ),
+    GetPage(
+      name: Routes.EDIT_PROFILE,
+      page: () => EditProfilePage(),
+    ),
+    GetPage(
+      name: Routes.SETTINGS,
+      page: () => SettingPage(),
+      binding: ProfileBinding(),
     ),
   ];
 }

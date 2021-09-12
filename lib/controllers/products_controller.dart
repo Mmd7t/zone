@@ -28,14 +28,20 @@ class ProductsController extends GetxController {
   RxInt category = 0.obs;
   RxInt brand = 0.obs;
   RxInt asset = 0.obs;
+  RxInt mod = 0.obs;
+  RxList<int> brands = <int>[].obs;
+  RxList<int> assets = <int>[].obs;
+  RxList<int> models = <int>[].obs;
   RxList<File> images = <File>[].obs;
   Rx<File> photo = Rx<File>(null);
+  Rx<File> descphoto = Rx<File>(null);
   RxDouble price = 0.0.obs;
   RxInt productNumber = 0.obs;
   RxInt productWarranty = 0.obs;
   RxInt productCondition = 0.obs;
   RxInt amount = 0.obs;
   RxString details = ''.obs;
+  RxInt carType = 0.obs;
 
   RxList<ProductsDatum> productsDatum = <ProductsDatum>[].obs;
   RxList<ProductDetailsDatum> productDetailsDatum = <ProductDetailsDatum>[].obs;
@@ -164,19 +170,27 @@ class ProductsController extends GetxController {
       addProductLoading.value = true;
       await getApiToken();
       response = await client.addProduct(
-          userId.value,
-          apiToken.value,
-          name.value,
-          photo.value,
-          images,
-          price.value,
-          productNumber.value,
-          productCondition.value,
-          productWarranty.value,
-          brand.value,
-          asset.value,
-          category.value,
-          details.value);
+        userId.value,
+        apiToken.value,
+        name.value,
+        photo.value,
+        images,
+        price.value,
+        productNumber.value,
+        productCondition.value,
+        productWarranty.value,
+        brand.value,
+        asset.value,
+        brands,
+        assets,
+        models,
+        mod.value,
+        category.value,
+        details.value,
+        carType.value,
+        descphoto.value,
+        amount.value,
+      );
       if (response != null && response.code == 200) {
         // Get.offNamedUntil(Routes.MAIN_PAGE, (route) => false);
         Get.offNamedUntil(Routes.MAIN_PAGE, (route) => false);

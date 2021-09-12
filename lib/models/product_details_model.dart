@@ -1,3 +1,15 @@
+// To parse this JSON data, do
+//
+//     final productDetailsModel = productDetailsModelFromJson(jsonString);
+
+import 'dart:convert';
+
+ProductDetailsModel productDetailsModelFromJson(String str) =>
+    ProductDetailsModel.fromJson(json.decode(str));
+
+String productDetailsModelToJson(ProductDetailsModel data) =>
+    json.encode(data.toJson());
+
 class ProductDetailsModel {
   ProductDetailsModel({
     this.maincode,
@@ -38,6 +50,7 @@ class ProductDetailsDatum {
     this.file,
     this.price,
     this.details,
+    this.stock,
     this.policy,
     this.productCondition,
     this.metaDescription,
@@ -65,15 +78,16 @@ class ProductDetailsDatum {
   dynamic file;
   int price;
   String details;
+  dynamic stock;
   String policy;
   int productCondition;
   dynamic metaDescription;
   int review;
   dynamic note;
   String productNumber;
-  String carType;
+  dynamic carType;
   dynamic model;
-  int models;
+  dynamic models;
   String warrantyPeriod;
   List<dynamic> galleries;
   User user;
@@ -93,6 +107,7 @@ class ProductDetailsDatum {
         file: json["file"],
         price: json["price"],
         details: json["details"],
+        stock: json["stock"],
         policy: json["policy"],
         productCondition: json["product_condition"],
         metaDescription: json["meta_description"],
@@ -107,7 +122,7 @@ class ProductDetailsDatum {
         user: User.fromJson(json["user"]),
         brand: Asset.fromJson(json["brand"]),
         asset: Asset.fromJson(json["asset"]),
-        category: (json["category"] == null)
+        category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
         ratings: List<dynamic>.from(json["ratings"].map((x) => x)),
@@ -123,6 +138,7 @@ class ProductDetailsDatum {
         "file": file,
         "price": price,
         "details": details,
+        "stock": stock,
         "policy": policy,
         "product_condition": productCondition,
         "meta_description": metaDescription,
@@ -173,32 +189,32 @@ class Asset {
   factory Asset.fromJson(Map<String, dynamic> json) => Asset(
         id: json["id"],
         name: json["name"],
-        slug: json["slug"],
+        slug: json["slug"] == null ? null : json["slug"],
         status: json["status"],
-        about: json["about"],
-        logo: json["logo"],
-        userId: json["user_id"],
+        about: json["about"] == null ? null : json["about"],
+        logo: json["logo"] == null ? null : json["logo"],
+        userId: json["user_id"] == null ? null : json["user_id"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        categoryId: json["category_id"],
+        categoryId: json["category_id"] == null ? null : json["category_id"],
         brandId: json["brand_id"] == null ? null : json["brand_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "slug": slug,
+        "slug": slug == null ? null : slug,
         "status": status,
-        "about": about,
-        "logo": logo,
-        "user_id": userId,
+        "about": about == null ? null : about,
+        "logo": logo == null ? null : logo,
+        "user_id": userId == null ? null : userId,
         "created_at": createdAt == null ? null : createdAt.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "category_id": categoryId,
+        "category_id": categoryId == null ? null : categoryId,
         "brand_id": brandId == null ? null : brandId,
       };
 }
@@ -227,7 +243,7 @@ class Category {
   int userId;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"] ?? null,
+        id: json["id"],
         name: json["name"],
         slug: json["slug"],
         status: json["status"],
@@ -267,7 +283,7 @@ class User {
   int id;
   String name;
   dynamic photo;
-  String city;
+  dynamic city;
   dynamic country;
   String phone;
   int isVendor;

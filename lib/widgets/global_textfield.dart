@@ -21,6 +21,7 @@ class GlobalTextField extends StatelessWidget {
   final TextInputType textInputType;
   final Color borderColor;
   final TextStyle hintStyle;
+  final FocusNode focusNode;
 
   const GlobalTextField.outlineBorder({
     Key key,
@@ -34,6 +35,7 @@ class GlobalTextField extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.suffix,
+    this.focusNode,
     this.maxLines,
     this.borderRadius = 60,
     this.inputBorderType = InputBorderType.outline,
@@ -55,6 +57,7 @@ class GlobalTextField extends StatelessWidget {
         obscureText: obscure ?? false,
         textInputAction: textInputAction ?? TextInputAction.done,
         keyboardType: textInputType ?? TextInputType.text,
+        focusNode: focusNode ?? null,
         maxLines: maxLines ?? 1,
         decoration: InputDecoration(
           contentPadding:

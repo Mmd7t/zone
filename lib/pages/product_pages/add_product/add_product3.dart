@@ -21,7 +21,7 @@ class AddProduct3 extends StatefulWidget {
 
 class _AddProduct3State extends State<AddProduct3> {
   final productsController = Get.find<ProductsController>();
-
+  FocusNode focusNode = FocusNode();
   TextEditingController detailsController = TextEditingController();
   final List years = List.generate(23, (index) => index + 2000);
   List<SimilerAs> similerAs = [];
@@ -35,11 +35,14 @@ class _AddProduct3State extends State<AddProduct3> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        picImage = 'تم اختيار الصورة بنجاح';
       } else {
         print('No image selected.');
       }
     });
   }
+
+  String picImage = 'صورة توضيحية للوصف';
 
 /*-----------------------------------  Get Source Function  -----------------------------------*/
 // function the shows dialog to choose which source would you get the image from
@@ -49,6 +52,9 @@ class _AddProduct3State extends State<AddProduct3> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           title: const Text('Choose Source'),
           actions: [
             /*------------------------  ImageSource.camera Btn  ------------------------*/
@@ -109,6 +115,7 @@ class _AddProduct3State extends State<AddProduct3> {
               Container(
                 width: Get.mediaQuery.size.width * 0.9,
                 child: GlobalTextField.outlineBorder(
+                  focusNode: focusNode,
                   controller: detailsController,
                   borderColor: Colors.black,
                   borderRadius: 15,
@@ -129,10 +136,15 @@ class _AddProduct3State extends State<AddProduct3> {
                   children: [
                     const SizedBox(width: 15),
                     Text(
-                      (_image != null)
-                          ? '${_image.path}'
-                          : 'صورة توضيحية للوصف',
-                      style: TextStyle(color: Colors.black),
+                      picImage,
+                      style: TextStyle(
+                        color: (_image != null)
+                            ? Get.theme.colorScheme.secondary
+                            : Colors.black,
+                        fontWeight: (_image != null)
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
                     Spacer(),
                     MaterialButton(
@@ -166,6 +178,7 @@ class _AddProduct3State extends State<AddProduct3> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        focusNode.unfocus();
                         SimilerAs similerItem = SimilerAs();
                         showModalBottomSheet(
                           shape: RoundedRectangleBorder(
@@ -273,7 +286,7 @@ class _AddProduct3State extends State<AddProduct3> {
                                                                             onTap:
                                                                                 () {
                                                                               setState(() {
-                                                                                similerItem.modelId = i;
+                                                                                similerItem.modelId = years[i];
                                                                                 similerItem.modelname = years[i].toString();
                                                                               });
 
@@ -442,7 +455,24 @@ class _AddProduct3State extends State<AddProduct3> {
                         onTap: () async {
                           productsController.details.value =
                               detailsController.text;
+                          productsController.descphoto.value = _image;
+                          List<int> brandid = [];
+                          similerAs.forEach((element) {
+                            brandid.add(element.brandID);
+                          });
+                          productsController.brands.value = brandid;
 
+                          List<int> assets = [];
+                          similerAs.forEach((element) {
+                            assets.add(element.assetId);
+                          });
+                          productsController.assets.value = assets;
+
+                          List<int> model = [];
+                          similerAs.forEach((element) {
+                            model.add(element.modelId);
+                          });
+                          productsController.models.value = model;
                           await productsController.addProduct();
                         },
                       ),
@@ -471,3 +501,8 @@ class SimilerAs {
       this.modelname,
       this.modelId});
 }
+
+
+
+
+// http://topzoneksa.com

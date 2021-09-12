@@ -422,7 +422,7 @@ class _AddProduct1State extends State<AddProduct1> {
                 title: 'التالى',
                 onTap: () {
                   productsController.name.value = controller.text;
-
+                  productsController.mod.value = int.parse(model);
                   productsController.photo.value = fileImageArray[0];
                   productsController.images.value = fileImageArray;
 

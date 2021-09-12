@@ -19,4 +19,6 @@ abstract class Routes {
   static const FORGOT_PASSWORD = '/forgot_password';
   static const PHONE_VERIFICATION = '/phone_verification';
   static const STATIC_PAGE = '/static_page';
+  static const SETTINGS = '/settings';
+  static const EDIT_PROFILE = '/edit_profile';
 }

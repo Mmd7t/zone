@@ -108,7 +108,7 @@ class _SignupPage3State extends State<SignupPage3> {
                                       .currentLocation.value.latitude,
                                   geolocatorController
                                       .currentLocation.value.longitude),
-                              zoom: 14.0,
+                              zoom: 4.0,
                             ),
                             mapType: MapType.normal,
                             markers: {

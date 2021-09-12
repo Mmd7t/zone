@@ -9,6 +9,7 @@ import 'package:top_zone/models/brands_model.dart';
 import 'package:top_zone/models/categories_model.dart';
 import 'package:top_zone/models/assets_model.dart';
 import 'package:top_zone/models/product_details_model.dart';
+import 'package:top_zone/models/vendor_edit_profile.dart';
 import 'package:top_zone/models/vendor_products_model.dart';
 import 'package:top_zone/models/verify_code_model.dart';
 part 'retrofit.g.dart';
@@ -91,15 +92,17 @@ abstract class RestClient {
     @Part(name: 'product_number') int productNumber,
     @Part(name: 'product_condition') int productCondition,
     @Part(name: 'product_warranty') int productWarranty,
-    // @Part(name: 'product_discretion') int productDiscretion,
     @Part(name: 'brand_id') int brandId,
     @Part(name: 'asset_id') int assetId,
-    // @Part(name: 'brands') List<int> brands,
-    // @Part(name: 'assets') List<int> assets,
-    // @Part(name: 'models') List<int> models,
+    @Part(name: 'brands') List<int> brands,
+    @Part(name: 'assets') List<int> assets,
+    @Part(name: 'models') List<int> models,
+    @Part(name: 'mod') int mod,
     @Part(name: 'category_id') int categoryId,
     @Part(name: 'details') String details,
-    // @Part(name: 'car_type') String carType,
+    @Part(name: 'car_type') int carType,
+    @Part(name: 'discretion_photo') File photoDiscretion,
+    @Part(name: 'stock') int qty,
   );
   /*--------------------------------------------------------------------------*/
   /*------------------------------  About Us  --------------------------------*/
@@ -109,6 +112,23 @@ abstract class RestClient {
   Future<AboutUsModel> getAboutUs();
   @GET("/warranty_policy")
   Future<AboutUsModel> getWarrantyPolicy();
+
+  /*--------------------------------------------------------------------------*/
+  /*------------------------------  Register  --------------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @MultiPart()
+  @POST("/vendor_editprofile")
+  Future<VendorEditProfileResponseModel> vendorEditProfile(
+    @Part(name: 'user_id') int userId,
+    @Part(name: 'api_token') String apiToken,
+    @Part(name: 'name') String name,
+    @Part(name: 'email') String email,
+    @Part(name: 'owner_name') String ownerName,
+    @Part(name: 'image') File image,
+    @Part(name: 'phone') String phone,
+    @Part(name: 'lat') double lat,
+    @Part(name: 'long') double long,
+  );
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

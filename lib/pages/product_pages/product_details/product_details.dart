@@ -74,11 +74,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          "${productsController.productDetailsDatum[0].brand.name}- ${productsController.productDetailsDatum[0].carType}",
-                          style: Get.textTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              "${productsController.productDetailsDatum[0].brand.name}",
+                              style: Get.textTheme.subtitle1.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 30),
+                            Text(
+                              (productsController
+                                          .productDetailsDatum[0].carType ==
+                                      0)
+                                  ? 'مستعمل'
+                                  : "جديد",
+                              style: Get.textTheme.subtitle1.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -98,11 +113,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            const SizedBox(height: 8),
                             Text(
                               "شامل ضريبة القيمة المضافه",
                             ),
                           ],
                         ),
+                        const SizedBox(height: 12),
                         Container(
                           padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
@@ -119,6 +136,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              const SizedBox(height: 8),
                               Text(
                                 " ر.س",
                                 style: Get.textTheme.bodyText1.copyWith(
@@ -131,6 +149,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -142,6 +161,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Text(
                           productsController.productDetailsDatum[0].details,
                           // style: lightStyle.copyWith(fontSize: 17),
@@ -155,9 +175,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     height: 200,
                     width: double.infinity,
-                    child: CustomNetworkImage(
-                      url: null,
-                    ),
+                    child: (productsController
+                                    .productDetailsDatum[0].galleries ==
+                                null ||
+                            productsController
+                                    .productDetailsDatum[0].galleries.length ==
+                                0)
+                        ? CustomNetworkImage(
+                            url: null,
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: productsController
+                                .productDetailsDatum[0].galleries.length,
+                            itemBuilder: (context, index) => CustomNetworkImage(
+                              url: productsController
+                                  .productDetailsDatum[0].galleries[index],
+                            ),
+                          ),
                   ),
                   const SizedBox(height: 20),
                   Padding(
@@ -194,7 +229,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                               // style: lightStyle.copyWith(fontSize: 17),
                             ),
                             Text(
-                              "${productsController.productDetailsDatum[0].productCondition}",
+                              (productsController
+                                          .productDetailsDatum[0].carType ==
+                                      0)
+                                  ? 'مستعمل'
+                                  : "جديد",
+                              // style: lightStyle.copyWith(fontSize: 17),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "الكمية",
+                              // style: lightStyle.copyWith(fontSize: 17),
+                            ),
+                            Text(
+                              (productsController.productDetailsDatum[0].stock
+                                  .toString()),
                               // style: lightStyle.copyWith(fontSize: 17),
                             ),
                           ],
@@ -207,12 +261,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                               "فترة الضمان",
                               // style: lightStyle.copyWith(fontSize: 17),
                             ),
-                            Text(
-                              productsController.productDetailsDatum[0] != null
-                                  ? "item"
-                                  : "لا يوجد",
-                              // style: lightStyle.copyWith(fontSize: 17),
-                            ),
+                            Text(productsController
+                                    .productDetailsDatum[0].warrantyPeriod
+                                    .toString()
+                                // style: lightStyle.copyWith(fontSize: 17),
+                                ),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -247,7 +300,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     // style: lightStyle.copyWith(fontSize: 14),
                                   ),
                                   Text(
-                                    "${productsController.productDetailsDatum[0].carType} (2002)",
+                                    "${productsController.productDetailsDatum[0].brand} (2002)",
                                     // style: lightStyle.copyWith(fontSize: 14),
                                   ),
                                 ],

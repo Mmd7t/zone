@@ -4,7 +4,9 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
 import 'package:top_zone/controllers/static_controller.dart';
+import 'package:top_zone/pages/menu_page/settings/setting_page.dart';
 import 'package:top_zone/routes/app_pages.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage({Key key}) : super(key: key);
@@ -33,7 +35,9 @@ class MenuPage extends StatelessWidget {
               title: Text("الرئيسية", style: textStyle),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.SETTINGS);
+              },
               title: Text("الاعدادات", style: textStyle),
             ),
             ListTile(
@@ -84,6 +88,32 @@ class MenuPage extends StatelessWidget {
                       color: Colors.red,
                       onPressed: () {},
                     ),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "تواصل معنا",
+                    style: Get.textTheme.bodyText1
+                        .copyWith(color: Get.theme.primaryColor),
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: ImageIcon(Svg("assets/svg/phoneIcon.svg")),
+                      color: Colors.purpleAccent,
+                      onPressed: () => launch("tel:0505439918"),
+                    ),
+                    IconButton(
+                        icon: ImageIcon(Svg("assets/svg/whats.svg")),
+                        onPressed: () {})
                   ],
                 )
               ],

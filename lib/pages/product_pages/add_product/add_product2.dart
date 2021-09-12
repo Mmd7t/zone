@@ -150,6 +150,7 @@ class _AddProduct2State extends State<AddProduct2> {
                   fillColor: Colors.white,
                   textInputType: TextInputType.number,
                   hint: 'فترة الضمان',
+                  suffix: 'شهر',
                 ),
               ),
               const SizedBox(height: 15),
@@ -207,6 +208,7 @@ class _AddProduct2State extends State<AddProduct2> {
                   productsController.productWarranty.value =
                       int.parse(poductWarrantyController.text);
                   productsController.productCondition.value = groupval;
+                  productsController.carType.value = groupval;
                   Get.toNamed(Routes.ADD_PRODUCT3);
                 },
               ),
