@@ -212,7 +212,8 @@ class _OnBoardingState extends State<OnBoarding> {
                             ),
                             const SizedBox(width: 10),
                             MaterialButton(
-                              onPressed: () {},
+                              onPressed: () => Get.offNamedUntil(
+                                  Routes.LOGIN, (route) => false),
                               child: Text(
                                 'تسجيل',
                                 style: TextStyle(

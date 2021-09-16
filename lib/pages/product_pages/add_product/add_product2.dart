@@ -208,7 +208,7 @@ class _AddProduct2State extends State<AddProduct2> {
                   productsController.productWarranty.value =
                       int.parse(poductWarrantyController.text);
                   productsController.productCondition.value = groupval;
-                  productsController.carType.value = groupval;
+                  productsController.mod.value = groupval;
                   Get.toNamed(Routes.ADD_PRODUCT3);
                 },
               ),

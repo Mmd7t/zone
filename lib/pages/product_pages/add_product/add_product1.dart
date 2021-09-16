@@ -15,7 +15,6 @@ import 'package:top_zone/widgets/global_back_btn.dart';
 import 'package:top_zone/widgets/global_btn.dart';
 import 'package:top_zone/widgets/global_textfield.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:top_zone/widgets/image_picker_sheet.dart';
 
 class AddProduct1 extends StatefulWidget {
   @override
@@ -26,8 +25,15 @@ class _AddProduct1State extends State<AddProduct1> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final productsController = Get.find<ProductsController>();
   TextEditingController controller = TextEditingController();
-  final List years = List.generate(23, (index) => index + 2000);
+  final List<String> years =
+      List.generate(23, (index) => (index + 2000).toString());
 
+  final TextEditingController textController = new TextEditingController();
+
+  List<String> _tempListOfCities1;
+  List<String> _tempListOfCities2;
+  List<String> _tempListOfCities3;
+  List<String> _tempListOfCities4;
   String brand = "اختر نوع السياره";
   String asset = "اختر فئة السياره";
   String model = "اختر موديل السياره";
@@ -241,62 +247,132 @@ class _AddProduct1State extends State<AddProduct1> {
                 title: asset,
                 onTap: () {
                   showModalBottomSheet(
+                    enableDrag: true,
+                    isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(25)),
                     ),
                     context: context,
-                    builder: (context) => Container(
-                      padding: const EdgeInsets.all(15),
-                      width: double.infinity,
-                      height: Get.mediaQuery.size.height * 0.5,
-                      child: FutureBuilder<AssetsModel>(
-                          future: productsController.getProductassets(),
-                          builder: (context, snapshot) {
-                            return (snapshot.hasData)
-                                ? ListView.builder(
-                                    itemCount: snapshot.data.data.length,
-                                    itemBuilder: (context, index) =>
-                                        GestureDetector(
-                                      onTap: () {
-                                        productsController.asset.value =
-                                            snapshot.data.data[index].id;
+                    builder: (context) => StatefulBuilder(
+                        builder: (context, StateSetter setState) {
+                      return DraggableScrollableSheet(
+                          expand: false,
+                          builder:
+                              (context, ScrollController scrollController) {
+                            return FutureBuilder(
+                                future: productsController.getProductassets(),
+                                builder: (context, shot) {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: Row(children: <Widget>[
+                                            Expanded(
+                                                child: TextField(
+                                                    controller: textController,
+                                                    decoration: InputDecoration(
+                                                      contentPadding:
+                                                          EdgeInsets.all(8),
+                                                      border:
+                                                          new OutlineInputBorder(
+                                                        borderRadius:
+                                                            new BorderRadius
+                                                                .circular(15.0),
+                                                        borderSide:
+                                                            new BorderSide(),
+                                                      ),
+                                                      prefixIcon:
+                                                          Icon(Icons.search),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      //4
+                                                      setState(() {
+                                                        _tempListOfCities4 =
+                                                            _buildSearchList(
+                                                                value,
+                                                                shot.data.data);
+                                                      });
+                                                    })),
+                                            IconButton(
+                                                icon: Icon(Icons.close),
+                                                color: Color(0xFF1F91E7),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    textController.clear();
+                                                    _tempListOfCities3.clear();
+                                                  });
+                                                }),
+                                          ])),
+                                      Expanded(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(15),
+                                          width: double.infinity,
+                                          height:
+                                              Get.mediaQuery.size.height * 0.5,
+                                          child: (shot.hasData)
+                                              ? ListView.builder(
+                                                  itemCount:
+                                                      shot.data.data.length,
+                                                  itemBuilder: (context,
+                                                          index) =>
+                                                      (_tempListOfCities3 !=
+                                                                  null &&
+                                                              _tempListOfCities3
+                                                                      .length >
+                                                                  0)
+                                                          ? _showBottomSheetWithSearch3(
+                                                              index,
+                                                              _tempListOfCities3)
+                                                          : _showBottomSheetWithSearch3(
+                                                              index,
+                                                              shot.data.data),
+                                                  //     GestureDetector(
+                                                  //   onTap: () {
+                                                  //     productsController.asset.value =
+                                                  //         snapshot.data.data[index].id;
 
-                                        setState(() {
-                                          asset =
-                                              snapshot.data.data[index].name;
-                                        });
-                                        Navigator.of(context).pop();
-                                        customSnackBar(
-                                            'تم اختيار فئة السياره بنجاح',
-                                            CupertinoIcons.checkmark_seal);
-                                      },
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(26.0),
-                                          child: Text(
-                                            '${snapshot.data.data[index].name}',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600),
-                                          ),
+                                                  //     setState(() {
+                                                  //       asset =
+                                                  //           snapshot.data.data[index].name;
+                                                  //     });
+                                                  //     Navigator.of(context).pop();
+                                                  //     customSnackBar(
+                                                  //         'تم اختيار فئة السياره بنجاح',
+                                                  //         CupertinoIcons.checkmark_seal);
+                                                  //   },
+                                                  //   child: Card(
+                                                  //     shape: RoundedRectangleBorder(
+                                                  //       borderRadius:
+                                                  //           BorderRadius.circular(18),
+                                                  //     ),
+                                                  //     child: Padding(
+                                                  //       padding: const EdgeInsets.all(26.0),
+                                                  //       child: Text(
+                                                  //         '${snapshot.data.data[index].name}',
+                                                  //         style: TextStyle(
+                                                  //             color: Colors.black,
+                                                  //             fontWeight: FontWeight.w600),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+                                                )
+                                              : Center(
+                                                  child: SpinKitThreeBounce(
+                                                  duration: const Duration(
+                                                      milliseconds: 1200),
+                                                  color: Get.theme.colorScheme
+                                                      .secondary,
+                                                  size: 25,
+                                                )),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: SpinKitThreeBounce(
-                                    duration:
-                                        const Duration(milliseconds: 1200),
-                                    color: Get.theme.colorScheme.secondary,
-                                    size: 25,
-                                  ));
-                          }),
-                    ),
+                                    ],
+                                  );
+                                });
+                          });
+                    }),
                   );
                 },
               ),
@@ -305,43 +381,80 @@ class _AddProduct1State extends State<AddProduct1> {
                 title: model,
                 onTap: () {
                   showModalBottomSheet(
+                    enableDrag: true,
+                    isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(25)),
                     ),
                     context: context,
-                    builder: (context) => Container(
-                      padding: const EdgeInsets.all(15),
-                      width: double.infinity,
-                      height: Get.mediaQuery.size.height * 0.5,
-                      child: ListView.builder(
-                        itemCount: years.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              model = years[index].toString();
-                            });
-                            Navigator.of(context).pop();
-                            customSnackBar('تم اختيار موديل السياره بنجاح',
-                                CupertinoIcons.checkmark_seal);
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(26.0),
-                              child: Text(
-                                '${years[index]}',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                    builder: (context) => StatefulBuilder(
+                        builder: (context, StateSetter setState) {
+                      return DraggableScrollableSheet(
+                        expand: false,
+                        builder: (context, ScrollController scrollController) {
+                          return Column(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Row(children: <Widget>[
+                                    Expanded(
+                                        child: TextField(
+                                            controller: textController,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(8),
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        15.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                            onChanged: (value) {
+                                              //4
+                                              setState(() {
+                                                _tempListOfCities4 =
+                                                    _buildSearchList(
+                                                        value, years);
+                                              });
+                                            })),
+                                    IconButton(
+                                        icon: Icon(Icons.close),
+                                        color: Color(0xFF1F91E7),
+                                        onPressed: () {
+                                          setState(() {
+                                            textController.clear();
+                                            _tempListOfCities4.clear();
+                                          });
+                                        }),
+                                  ])),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  width: double.infinity,
+                                  height: Get.mediaQuery.size.height * 0.5,
+                                  child: ListView.builder(
+                                    controller: scrollController,
+                                    itemCount: (_tempListOfCities4 != null &&
+                                            _tempListOfCities4.length > 0)
+                                        ? _tempListOfCities4.length
+                                        : years.length,
+                                    itemBuilder: (context, index) =>
+                                        (_tempListOfCities4 != null &&
+                                                _tempListOfCities4.length > 0)
+                                            ? _showBottomSheetWithSearch4(
+                                                index, _tempListOfCities4)
+                                            : _showBottomSheetWithSearch4(
+                                                index, years),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                            ],
+                          );
+                        },
+                      );
+                    }),
                   );
                 },
               ),
@@ -423,7 +536,6 @@ class _AddProduct1State extends State<AddProduct1> {
                 onTap: () {
                   productsController.name.value = controller.text;
                   productsController.mod.value = int.parse(model);
-                  productsController.photo.value = fileImageArray[0];
                   productsController.images.value = fileImageArray;
 
                   Get.toNamed(Routes.ADD_PRODUCT2);
@@ -484,5 +596,89 @@ class _AddProduct1State extends State<AddProduct1> {
         ],
       ),
     );
+  }
+
+  Widget _showBottomSheetWithSearch4(int index, list) {
+    return GestureDetector(
+      onTap: (_tempListOfCities4 != null && _tempListOfCities4.length > 0)
+          ? () {
+              setState(() {
+                model = _tempListOfCities4[index].toString();
+              });
+              Navigator.of(context).pop();
+              customSnackBar('تم اختيار موديل السياره بنجاح',
+                  CupertinoIcons.checkmark_seal);
+            }
+          : () {
+              setState(() {
+                model = years[index].toString();
+              });
+
+              Navigator.of(context).pop();
+              customSnackBar('تم اختيار موديل السياره بنجاح',
+                  CupertinoIcons.checkmark_seal);
+            },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(26.0),
+          child: Text(list[index],
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              textAlign: TextAlign.center),
+        ),
+      ),
+    );
+  }
+
+  Widget _showBottomSheetWithSearch3(int index, List list) {
+    return GestureDetector(
+      onTap: (_tempListOfCities3 != null && _tempListOfCities3.length > 0)
+          ? () {
+              productsController.asset.value = list[index].id;
+
+              setState(() {
+                asset = list[index].name;
+              });
+
+              Navigator.of(context).pop();
+              customSnackBar(
+                  'تم اختيار فئة السياره بنجاح', CupertinoIcons.checkmark_seal);
+            }
+          : () {
+              productsController.asset.value = list[index].id;
+              setState(() {
+                asset = list[index].name;
+              });
+
+              Navigator.of(context).pop();
+              customSnackBar('تم اختيار موديل السياره بنجاح',
+                  CupertinoIcons.checkmark_seal);
+            },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(26.0),
+          child: Text(list[index].name,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              textAlign: TextAlign.center),
+        ),
+      ),
+    );
+  }
+
+  List<String> _buildSearchList(String userSearchTerm, searchList) {
+    List<String> _searchList = [];
+
+    for (int i = 0; i < searchList.length; i++) {
+      String name = searchList[i].toString();
+      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
+        _searchList.add(searchList[i].toString());
+      }
+    }
+    return _searchList;
   }
 }

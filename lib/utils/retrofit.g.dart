@@ -213,8 +213,6 @@ class _RestClient implements RestClient {
       mod,
       categoryId,
       details,
-      carType,
-      photoDiscretion,
       qty) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(apiToken, 'apiToken');
@@ -233,8 +231,6 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(mod, 'mod');
     ArgumentError.checkNotNull(categoryId, 'categoryId');
     ArgumentError.checkNotNull(details, 'details');
-    ArgumentError.checkNotNull(carType, 'carType');
-    ArgumentError.checkNotNull(photoDiscretion, 'photoDiscretion');
     ArgumentError.checkNotNull(qty, 'qty');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -305,14 +301,6 @@ class _RestClient implements RestClient {
     if (details != null) {
       _data.fields.add(MapEntry('details', details));
     }
-    if (carType != null) {
-      _data.fields.add(MapEntry('car_type', carType.toString()));
-    }
-    _data.files.add(MapEntry(
-        'discretion_photo',
-        MultipartFile.fromFileSync(photoDiscretion.path,
-            filename:
-                photoDiscretion.path.split(Platform.pathSeparator).last)));
     if (qty != null) {
       _data.fields.add(MapEntry('stock', qty.toString()));
     }
@@ -363,15 +351,34 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<GetUserDataModel> getUserData(userId, apiToken) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'user_id': userId, 'api_token': apiToken};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/myprofile',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GetUserDataModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<VendorEditProfileResponseModel> vendorEditProfile(
-      userId, apiToken, name, email, ownerName, image, phone, lat, long) async {
+      userId, apiToken, name, email, ownerName, image, lat, long) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(apiToken, 'apiToken');
     ArgumentError.checkNotNull(name, 'name');
     ArgumentError.checkNotNull(email, 'email');
     ArgumentError.checkNotNull(ownerName, 'ownerName');
     ArgumentError.checkNotNull(image, 'image');
-    ArgumentError.checkNotNull(phone, 'phone');
     ArgumentError.checkNotNull(lat, 'lat');
     ArgumentError.checkNotNull(long, 'long');
     const _extra = <String, dynamic>{};
@@ -396,9 +403,6 @@ class _RestClient implements RestClient {
         'image',
         MultipartFile.fromFileSync(image.path,
             filename: image.path.split(Platform.pathSeparator).last)));
-    if (phone != null) {
-      _data.fields.add(MapEntry('phone', phone));
-    }
     if (lat != null) {
       _data.fields.add(MapEntry('lat', lat.toString()));
     }

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart' hide Svg;
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:top_zone/controllers/auth_controller.dart';
 import 'package:top_zone/controllers/static_controller.dart';
-import 'package:top_zone/pages/menu_page/settings/setting_page.dart';
 import 'package:top_zone/routes/app_pages.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,9 +22,7 @@ class MenuPage extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: Image.asset(
-            "assets/Scroll.png",
-          ),
+          child: Image.asset("assets/Scroll.png"),
         ),
         ListView(
           padding: EdgeInsets.all(20),
@@ -112,8 +110,13 @@ class MenuPage extends StatelessWidget {
                       onPressed: () => launch("tel:0505439918"),
                     ),
                     IconButton(
-                        icon: ImageIcon(Svg("assets/svg/whats.svg")),
-                        onPressed: () {})
+                      icon: SvgPicture.asset("assets/svg/whatsapp.svg"),
+                      onPressed: () {
+                        launchUniversalLink(
+                            'whatsapp://send?phone=+96653264832&text=hala',
+                            context);
+                      },
+                    ),
                   ],
                 )
               ],
@@ -122,5 +125,16 @@ class MenuPage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Future<void> launchUniversalLink(String url, context) async {
+    final bool nativeAppLaunchSucceeded = await launch(
+      url,
+      forceSafariVC: false,
+      universalLinksOnly: true,
+    );
+    if (!nativeAppLaunchSucceeded) {
+      await launch(url, forceSafariVC: true);
+    }
   }
 }

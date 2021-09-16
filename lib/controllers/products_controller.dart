@@ -34,14 +34,12 @@ class ProductsController extends GetxController {
   RxList<int> models = <int>[].obs;
   RxList<File> images = <File>[].obs;
   Rx<File> photo = Rx<File>(null);
-  Rx<File> descphoto = Rx<File>(null);
   RxDouble price = 0.0.obs;
   RxInt productNumber = 0.obs;
   RxInt productWarranty = 0.obs;
   RxInt productCondition = 0.obs;
   RxInt amount = 0.obs;
   RxString details = ''.obs;
-  RxInt carType = 0.obs;
 
   RxList<ProductsDatum> productsDatum = <ProductsDatum>[].obs;
   RxList<ProductDetailsDatum> productDetailsDatum = <ProductDetailsDatum>[].obs;
@@ -87,8 +85,8 @@ class ProductsController extends GetxController {
         print('saved it');
         productsLoading.value = false;
       }
-    } on Exception catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      errorDialog(content: e.response.statusMessage.toString());
     }
   }
 
@@ -187,8 +185,6 @@ class ProductsController extends GetxController {
         mod.value,
         category.value,
         details.value,
-        carType.value,
-        descphoto.value,
         amount.value,
       );
       if (response != null && response.code == 200) {
@@ -199,10 +195,10 @@ class ProductsController extends GetxController {
         errorDialog(content: response.error.toString());
       }
       addProductLoading.value = false;
-    } on Exception catch (e) {
-      // errorDialog(content: response.error.toString());
+    } on DioError catch (e) {
+      errorDialog(content: e.response.statusMessage.toString());
       // errorDialog(content: 'حدث خطأ\nمن فضلك اعد المحاولة مرة اخرى');
-      throw e;
+
     }
   }
 

@@ -85,10 +85,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             const SizedBox(width: 30),
                             Text(
                               (productsController
-                                          .productDetailsDatum[0].carType ==
+                                          .productDetailsDatum[0].model ==
                                       0)
-                                  ? 'مستعمل'
-                                  : "جديد",
+                                  ? 'جديد'
+                                  : "مستعمل",
                               style: Get.textTheme.subtitle1.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -230,10 +230,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                             Text(
                               (productsController
-                                          .productDetailsDatum[0].carType ==
+                                          .productDetailsDatum[0].model ==
                                       0)
-                                  ? 'مستعمل'
-                                  : "جديد",
+                                  ? 'جديد'
+                                  : "مستعمل",
                               // style: lightStyle.copyWith(fontSize: 17),
                             ),
                           ],
@@ -300,7 +300,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     // style: lightStyle.copyWith(fontSize: 14),
                                   ),
                                   Text(
-                                    "${productsController.productDetailsDatum[0].brand} (2002)",
+                                    "${productsController.productDetailsDatum[0].model}",
+                                    // style: lightStyle.copyWith(fontSize: 14),
+                                  ),
+                                  Text(
+                                    "${productsController.productDetailsDatum[0].model}",
                                     // style: lightStyle.copyWith(fontSize: 14),
                                   ),
                                 ],

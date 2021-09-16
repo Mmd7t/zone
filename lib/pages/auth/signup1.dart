@@ -154,11 +154,9 @@ class _SignupPage1State extends State<SignupPage1> {
                                   ),
                                 ),
                                 MaterialButton(
-                                  onPressed: file == null
-                                      ? () {
-                                          pickFile();
-                                        }
-                                      : null,
+                                  onPressed: () {
+                                    pickFile();
+                                  },
                                   child: Text('اضافة'),
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
@@ -179,6 +177,7 @@ class _SignupPage1State extends State<SignupPage1> {
                             borderColor: Colors.black,
                             borderRadius: 15,
                             fillColor: Colors.white,
+                            textInputType: TextInputType.emailAddress,
                             hint: 'البريد الالكترونى',
                             validator: (String value) {
                               if (value.isEmpty) {

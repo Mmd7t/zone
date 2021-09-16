@@ -250,8 +250,8 @@ class User {
   String phone;
   int isVendor;
   String isWholesaler;
-  String lat;
-  String lon;
+  double lat;
+  double lon;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],

@@ -11,6 +11,7 @@ import 'package:top_zone/widgets/custom_dialogs.dart';
 import 'package:top_zone/widgets/global_back_btn.dart';
 import 'package:top_zone/widgets/global_btn.dart';
 import 'package:top_zone/widgets/global_textfield.dart';
+import 'package:top_zone/widgets/image_picker_sheet%20copy.dart';
 
 class AddProduct3 extends StatefulWidget {
   const AddProduct3({Key key}) : super(key: key);
@@ -26,62 +27,8 @@ class _AddProduct3State extends State<AddProduct3> {
   final List years = List.generate(23, (index) => index + 2000);
   List<SimilerAs> similerAs = [];
   File _image;
-  ImageSource source = ImageSource.gallery;
-
-/*-----------------------------------  Get The Image Function  -----------------------------------*/
-  Future getImage() async {
-    final pickedFile = await ImagePicker.pickImage(source: source);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        picImage = 'تم اختيار الصورة بنجاح';
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
 
   String picImage = 'صورة توضيحية للوصف';
-
-/*-----------------------------------  Get Source Function  -----------------------------------*/
-// function the shows dialog to choose which source would you get the image from
-// ImageSource.camera ----OR---- ImageSource.gallery
-  _getSource(context) async {
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          title: const Text('Choose Source'),
-          actions: [
-            /*------------------------  ImageSource.camera Btn  ------------------------*/
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  source = ImageSource.camera;
-                });
-                Navigator.of(context).pop();
-              },
-              child: const Text('Camera'),
-            ),
-            /*------------------------  ImageSource.gallery Btn  ------------------------*/
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  source = ImageSource.gallery;
-                });
-                Navigator.of(context).pop();
-              },
-              child: const Text('Gallery'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +96,14 @@ class _AddProduct3State extends State<AddProduct3> {
                     Spacer(),
                     MaterialButton(
                       onPressed: () async {
-                        await _getSource(context);
-                        getImage();
+                        ImagePickerDialog().show(
+                            context: context,
+                            onGet: (f) {
+                              setState(() {
+                                _image = f;
+                                picImage = 'تم اختيار الصورة بنجاح';
+                              });
+                            });
                       },
                       child: Text('ارفاق'),
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -455,7 +408,7 @@ class _AddProduct3State extends State<AddProduct3> {
                         onTap: () async {
                           productsController.details.value =
                               detailsController.text;
-                          productsController.descphoto.value = _image;
+                          productsController.photo.value = _image;
                           List<int> brandid = [];
                           similerAs.forEach((element) {
                             brandid.add(element.brandID);

@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: 15,
                             fillColor: Colors.white,
                             hint: 'رقم الهاتف',
-                            textInputType: TextInputType.phone,
+                            textInputType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'يجب ادخال رقم الهاتف';

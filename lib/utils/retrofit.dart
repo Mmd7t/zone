@@ -8,6 +8,7 @@ import 'package:top_zone/models/auth_model.dart';
 import 'package:top_zone/models/brands_model.dart';
 import 'package:top_zone/models/categories_model.dart';
 import 'package:top_zone/models/assets_model.dart';
+import 'package:top_zone/models/get_user_data.dart';
 import 'package:top_zone/models/product_details_model.dart';
 import 'package:top_zone/models/vendor_edit_profile.dart';
 import 'package:top_zone/models/vendor_products_model.dart';
@@ -100,8 +101,6 @@ abstract class RestClient {
     @Part(name: 'mod') int mod,
     @Part(name: 'category_id') int categoryId,
     @Part(name: 'details') String details,
-    @Part(name: 'car_type') int carType,
-    @Part(name: 'discretion_photo') File photoDiscretion,
     @Part(name: 'stock') int qty,
   );
   /*--------------------------------------------------------------------------*/
@@ -112,6 +111,11 @@ abstract class RestClient {
   Future<AboutUsModel> getAboutUs();
   @GET("/warranty_policy")
   Future<AboutUsModel> getWarrantyPolicy();
+  @POST("/myprofile")
+  Future<GetUserDataModel> getUserData(
+    @Field('user_id') int userId,
+    @Field('api_token') String apiToken,
+  );
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  Register  --------------------------------*/
@@ -125,7 +129,6 @@ abstract class RestClient {
     @Part(name: 'email') String email,
     @Part(name: 'owner_name') String ownerName,
     @Part(name: 'image') File image,
-    @Part(name: 'phone') String phone,
     @Part(name: 'lat') double lat,
     @Part(name: 'long') double long,
   );

@@ -5,6 +5,7 @@ import 'package:top_zone/bindings/products_binding.dart';
 import 'package:top_zone/bindings/profile_binding.dart';
 import 'package:top_zone/pages/auth/verify_phone_page.dart';
 import 'package:top_zone/pages/menu_page/settings/setting_page.dart';
+import 'package:top_zone/pages/menu_page/settings/setting_pages/edit_password_page.dart';
 import 'package:top_zone/pages/menu_page/settings/setting_pages/edit_profile_page.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product1.dart';
 import 'package:top_zone/pages/product_pages/add_product/add_product2.dart';
@@ -91,6 +92,11 @@ class AppPages {
     GetPage(
       name: Routes.SETTINGS,
       page: () => SettingPage(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.CHANGE_PASS,
+      page: () => EditPasswordPage(),
       binding: ProfileBinding(),
     ),
   ];

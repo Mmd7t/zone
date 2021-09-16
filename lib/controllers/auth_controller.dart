@@ -84,9 +84,9 @@ class AuthController extends GetxController {
         errorDialog(content: response.error.toString());
       }
       loginLoading.value = false;
-    } catch (e) {
-      // errorDialog(content: 'حدث خطأ\nمن فضلك اعد المحاولة مرة اخرى');
-      throw e;
+    } on DioError catch (e) {
+      errorDialog(content: e.response.statusMessage.toString());
+      // throw e;
     }
   }
 
@@ -114,8 +114,9 @@ class AuthController extends GetxController {
         errorDialog(content: response.error.toString());
       }
       registerLoading.value = false;
-    } catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      // throw e;
+      errorDialog(content: e.response.statusMessage.toString());
     }
   }
 
@@ -134,8 +135,9 @@ class AuthController extends GetxController {
         errorDialog(content: response.error.toString());
       }
       verifyLoading.value = false;
-    } catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      // throw e;
+      errorDialog(content: e.response.statusMessage.toString());
     }
   }
 

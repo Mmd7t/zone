@@ -107,7 +107,7 @@ class _SignupPage2State extends State<SignupPage2> {
                             borderRadius: 15,
                             fillColor: Colors.white,
                             hint: 'رقم الهاتف',
-                            textInputType: TextInputType.phone,
+                            textInputType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'يجب ادخال رقم الهاتف';
@@ -183,7 +183,8 @@ class _SignupPage2State extends State<SignupPage2> {
                           side: BorderSide(color: Colors.black, width: 1.5),
                           value: checkBoxVal,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3)),
+                            borderRadius: BorderRadius.circular(3),
+                          ),
                           onChanged: (value) {
                             setState(() {
                               checkBoxVal = value;

@@ -1,5 +1,5 @@
-class VendorEditProfileResponseModel {
-  VendorEditProfileResponseModel({
+class GetUserDataModel {
+  GetUserDataModel({
     this.maincode,
     this.code,
     this.error,
@@ -11,8 +11,8 @@ class VendorEditProfileResponseModel {
   dynamic error;
   Data data;
 
-  factory VendorEditProfileResponseModel.fromJson(Map<String, dynamic> json) =>
-      VendorEditProfileResponseModel(
+  factory GetUserDataModel.fromJson(Map<String, dynamic> json) =>
+      GetUserDataModel(
         maincode: json["maincode"],
         code: json["code"],
         error: json["error"],
@@ -35,11 +35,7 @@ class Data {
     this.city,
     this.country,
     this.phone,
-    this.email,
-    this.shopName,
-    this.ownerName,
     this.isVendor,
-    this.apiToken,
     this.lat,
     this.lon,
   });
@@ -50,13 +46,9 @@ class Data {
   dynamic city;
   dynamic country;
   String phone;
-  String email;
-  dynamic shopName;
-  dynamic ownerName;
   int isVendor;
-  String apiToken;
   dynamic lat;
-  double lon;
+  int lon;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -65,11 +57,7 @@ class Data {
         city: json["city"],
         country: json["country"],
         phone: json["phone"],
-        email: json["email"],
-        shopName: json["shop_name"],
-        ownerName: json["owner_name"],
         isVendor: json["is_vendor"],
-        apiToken: json["api_token"],
         lat: json["lat"],
         lon: json["lon"],
       );
@@ -81,11 +69,7 @@ class Data {
         "city": city,
         "country": country,
         "phone": phone,
-        "email": email,
-        "shop_name": shopName,
-        "owner_name": ownerName,
         "is_vendor": isVendor,
-        "api_token": apiToken,
         "lat": lat,
         "lon": lon,
       };
